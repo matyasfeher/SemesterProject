@@ -18,7 +18,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+import org.json.simple.JSONObject;
+import request.Flights;
 import utils.Tester;
 
 /**
@@ -44,13 +47,24 @@ public class SearchService {
      * @param jsonString
      * @return an instance of java.lang.String
      */
+    
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String Status() {
+        return "Hello from API";
+    }
+    
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{date}/{tickets}")
-    public String getJson(String jsonString) {
+    public String getJson(@PathParam("from") String fromAirport, @PathParam("date") String date, @PathParam("tickets") int tickets) {
         //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        System.out.println("tickets = " + tickets);
+        System.out.println("date = " + date);
+        System.out.println("fromAirport = " + fromAirport);
+        Flights fsearch = new Flights();
+        JSONObject jsonFlights = fsearch.getFlightSite(fromAirport, date, tickets);
+        return jsonFlights.toJSONString();
     }
 
     /**

@@ -9,9 +9,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.ws.rs.core.HttpHeaders.USER_AGENT;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
+import utils.Tester;
 
 /**
  *
@@ -22,15 +29,25 @@ public class Flights {
 //    public String getFlights(String depAirport, String depDate, int tickets){
 //        
 //    }
-    public static void main(String[] args) throws Exception {
-        getFlightSite();
+//    public static void main(String[] args) throws Exception {
+//        getFlightSite();
+//
+//    }
 
-    }
-
-    private static void getFlightSite() throws Exception {
+    public JSONObject getFlightSite(String fromAirport, String date, int passangers) {
         String jsonResponse = null;
+        
+        //validate date
+        if (!validateDate(date)) {
+            JSONObject json = new JSONObject();
+            json.put("httpError", "400");
+            json.put("errorCode", "3");
+            json.put("message", "Invalid date format.");
+            return json;
+        }
+        
         try {
-            String url = "http://airline-plaul.rhcloud.com/api/flightinfo/cph/2017-01-06T08:00:00.000Z/2";
+            String url = "http://airline-plaul.rhcloud.com/api/flightinfo/" + fromAirport + "/" + date + "/" + passangers;
 
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -59,7 +76,32 @@ public class Flights {
 
         //Work with received JSON object
         JSONParser parser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) parser.parse(jsonResponse);
-        System.out.println("AIrline: "+jsonObject.get("airline"));
+        JSONObject jsonObject;
+        try {
+            jsonObject = (JSONObject) parser.parse(jsonResponse);
+            System.out.println("AIrline: "+jsonObject.get("airline"));
+            return jsonObject;
+        } catch (org.json.simple.parser.ParseException ex) {
+            Logger.getLogger(Flights.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        JSONObject json = new JSONObject();
+            json.put("httpError", "500");
+            json.put("errorCode", "4");
+            json.put("message", "Unknown error in flights().");
+            return json;
+    }
+    
+    
+    //Validates that the date confirms to
+    public static boolean validateDate(String uncertainDate) {
+        DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        try {
+            Date date = sdfISO.parse(uncertainDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 }
