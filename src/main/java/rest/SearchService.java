@@ -5,6 +5,10 @@
  */
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,16 +48,16 @@ public class SearchService {
 
     /**
      * Retrieves representation of an instance of rest.SearchService
+     *
      * @param jsonString
      * @return an instance of java.lang.String
      */
-    
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String Status() {
         return "Hello from API";
     }
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{date}/{tickets}")
@@ -64,18 +68,26 @@ public class SearchService {
         System.out.println("fromAirport = " + fromAirport);
         Flights fsearch = new Flights();
         JSONObject jsonFlights = fsearch.getFlightSite(fromAirport, date, tickets);
-        return jsonFlights.toJSONString();
+
+        //Set pritty printing on the result
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonParser jp = new JsonParser();
+        JsonElement je = jp.parse(jsonFlights.toJSONString());
+        String prettyJsonString = gson.toJson(je);
+
+        return prettyJsonString;
     }
 
     /**
      * PUT method for updating or creating an instance of SearchService
+     *
      * @param content representation for the resource
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
     }
-    
+
     //Validates that the date confirms to
     public static boolean validateDate(String uncertainDate) {
         DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
