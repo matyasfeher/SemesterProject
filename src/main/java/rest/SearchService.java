@@ -5,6 +5,12 @@
  */
 package rest;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -13,13 +19,15 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
+import utils.Tester;
 
 /**
  * REST Web Service
  *
  * @author edipetres
  */
-@Path("flights")
+//Called the path 'allflights' to differentiate from individual airlines' APIs
+@Path("allflights")
 public class SearchService {
 
     @Context
@@ -33,11 +41,14 @@ public class SearchService {
 
     /**
      * Retrieves representation of an instance of rest.SearchService
+     * @param jsonString
      * @return an instance of java.lang.String
      */
     @GET
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
+    @Path("{from}/{date}/{tickets}")
+    public String getJson(String jsonString) {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
     }
@@ -49,5 +60,17 @@ public class SearchService {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
+    }
+    
+    //Validates that the date confirms to
+    public static boolean validateDate(String uncertainDate) {
+        DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        try {
+            Date date = sdfISO.parse(uncertainDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 }
