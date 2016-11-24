@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONObject;
+import request.Flights;
 
 /**
  *
@@ -19,11 +21,10 @@ import java.util.logging.Logger;
 public class Tester {
     
     public static void main(String[] args) {
-        String validDate = "2016-01-06T08:00:00.000Z";
-        String invalid = "24-12-2016";
-        System.out.println("Valid date result " + validateDate(validDate));
-        System.out.println("Invalid date result " + validateDate(invalid));
-        
+        String validDate = "2017-01-06T08:00:00.000Z";
+        Flights flights = new Flights();
+        JSONObject flightSite = flights.getFlightSite("cph", validDate, 2);
+        System.out.println("Airline: "+flightSite.get("airline"));
     }
     
     //Validates that the date confirms to
