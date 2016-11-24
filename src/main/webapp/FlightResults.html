@@ -16,8 +16,11 @@ and open the template in the editor.
     <body ng-app="FlightResults">
         <div ng-controller="MainController">
             <h2>Flight results</h2>
-            From: <input type="text" ng-model="originAirport"> 
-            Passangers: <input type="text" ng-model="passangers"> 
+            From: <select name="origin" ng-model="origin">
+                <option ng-repeat="airport in originAirports" value="{{airport}}">{{airport}}</option>
+            </select><br>
+            Date: <input type="text" ng-model="date"> (yyy-mm-dd) <br>
+            Passangers: <input type="text" ng-model="passangers"> <br>
             <button ng-click="getFlights()">Search</button>
             <h3>{{data.airline}}</h3>
             <table style="width:60%" ng-show="data">
@@ -36,9 +39,10 @@ and open the template in the editor.
                     <td>{{flight.origin}}</td>
                     <td>{{flight.traveltime}} min</td>
                     <td>{{flight.destination}}</td>
-                    <td>{{flight.totalPrice}}</td>
+                    <td>{{flight.totalPrice | currency}}</td>
                 </tr>
             </table>
+            {{errorMessage}}
         </div>
     </body>
 </html>

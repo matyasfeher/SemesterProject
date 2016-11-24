@@ -8,19 +8,23 @@
 var ResultsController = angular.module('FlightResults', [])
 
         .controller('MainController', function ($scope, $http) {
-            $scope.message = "hi there";
-            $scope.originAirport = "CPH";
-            $scope.date;
+            $scope.errorMessage;
+            
+            $scope.originAirports = ["CPH", "STN", "SXF", "CDG", "BCN"];
+            $scope.origin = "";
+            $scope.date = "2017-01-01";
             $scope.passangers = 1;
     
             $scope.getFlights = function() {
                 $http({
                     method: "GET",
-                    url: "api/allflights/" + $scope.originAirport + "/2017-01-16T08:00:00.000Z/" + $scope.passangers
+                    url: "api/allflights/" + $scope.origin + "/" + $scope.date + "T08:00:00.000Z/" + $scope.passangers
                 }).then(function successCallback(res) {
                     $scope.data = res.data;
+                    $scope.errorMessage = "";
                 }, function errorCallback(res) {
                     $scope.error = res.status + ": " + res.data.statusText;
+                    $scope.errorMessage = "Invalid request. ("+ res.status +")";
                 });
             };
     
