@@ -2,7 +2,7 @@ $(function() {
 
     var i=1;
 	$("#add_row").click(function(){
-		$('#addr'+i).html("<td><input name='name"+i+"' type='text' placeholder='First Name' class='form-control input-sm'  /> </td><td><input  name='mail"+i+"' type='text' placeholder='Last Name'  class='form-control input-sm'></td>");
+		$('#addr'+i).html("<td><input ng-model='firstName'"+i+" name='name"+i+"' type='text' placeholder='First Name' class='form-control input-sm'  /> </td><td><input  ng-model='lastName'"+i+" name='mail"+i+"' type='text' placeholder='Last Name'  class='form-control input-sm'></td>");
 
 		$('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
 		i++; 
