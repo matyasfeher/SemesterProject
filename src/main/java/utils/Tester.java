@@ -23,7 +23,7 @@ public class Tester {
     public static void main(String[] args) {
         String validDate = "2017-01-06T08:00:00.000Z";
         Flights flights = new Flights();
-        JSONObject flightSite = flights.getFlightSite("cph", validDate, 2);
+        JSONObject flightSite = flights.getFlightWebsite("cph", validDate, 2);
         System.out.println("Airline: "+flightSite.get("airline"));
     }
     
