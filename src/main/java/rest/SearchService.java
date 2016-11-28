@@ -62,12 +62,8 @@ public class SearchService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{date}/{tickets}")
     public String getJson(@PathParam("from") String fromAirport, @PathParam("date") String date, @PathParam("tickets") int tickets) {
-        //TODO return proper representation object
-        System.out.println("tickets = " + tickets);
-        System.out.println("date = " + date);
-        System.out.println("fromAirport = " + fromAirport);
         Flights fsearch = new Flights();
-        JSONObject jsonFlights = fsearch.getFlightSite(fromAirport, date, tickets);
+        JSONObject jsonFlights = fsearch.getFlightWebsite(fromAirport, date, tickets);
 
         //Set pritty printing on the result
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -78,6 +74,24 @@ public class SearchService {
         return prettyJsonString;
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{from}/{to}/{date}/{tickets}")
+    public String getJsonBetweenTwoAirports(@PathParam("from") String fromAirport, @PathParam("to") String toAirport, @PathParam("date") String date, @PathParam("tickets") int tickets){
+        Flights flightsearch = new Flights();
+        JSONObject jsonToAndFromFlights = flightsearch.getFlightBetweenTwoAirports(fromAirport, toAirport, date, tickets);
+    
+                
+        //Set pritty printing on the result
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonParser jp = new JsonParser();
+        JsonElement je = jp.parse(jsonToAndFromFlights.toJSONString());
+        String prettyJsonString = gson.toJson(je);
+
+        return prettyJsonString;      
+    }
+        
+    
     /**
      * PUT method for updating or creating an instance of SearchService
      *
