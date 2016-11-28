@@ -112,6 +112,8 @@ public class Flights {
             con.setRequestProperty("USER_AGENT", USER_AGENT);
             
             int responseCode = con.getResponseCode();
+            System.out.println("\nSending 'GET' request to URL : " + url);
+            System.out.println("Response code : " + responseCode);
             
             BufferedReader input = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
