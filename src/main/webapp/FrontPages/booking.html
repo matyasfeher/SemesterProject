@@ -1,153 +1,166 @@
 <!doctype html>
 
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width = device-width, initial-scale=1"> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width = device-width, initial-scale=1"> 
 
-	<title>Booking</title>
+        <title>Booking</title>
 
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
 
-	<!--[if lt IE 9]>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-	<![endif]-->
-</head>
+        <!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+        <![endif]-->
+    </head>
 
-<body>
+    <body ng-app="BookingApp">
 
-	<div id="slideshow">
-		<img src="images/b1.jpg" class="bgM"/>
-		<img src="#" delayed-src="images/b2.jpg" class="bgM"/>
-	</div>
+        <div id="slideshow">
+            <img src="images/b1.jpg" class="bgM"/>
+            <img src="#" delayed-src="images/b2.jpg" class="bgM"/>
+        </div>
 
-	<div class="modal fade bd-example-modal-sm" id="successModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<span class="glyphicon glyphicon-ok pull-left"></span>
-					<h4 class="modal-title">SUCCESS!</h4>
-				</div>
+        <div ng-show="succesfullBooking" class="modal fade bd-example-modal-sm" id="successModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <span class="glyphicon glyphicon-ok pull-left"></span>
+                        <h4 class="modal-title">SUCCESS!</h4>
+                    </div>
 
-				<div class="modal-body">
-					<p>Your booking has been confirmed!</p>
-					<a href="javascript:void(0)" id="seeError" style="font-size: small">See Error Message</a>
-				</div>
+                    <div class="modal-body">
+                        <p>Your booking has been confirmed!</p>
+                        <a href="javascript:void(0)" id="seeError" style="font-size: small">See Error Message</a>
+                    </div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Ok</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	<div class="modal fade bd-example-modal-sm" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<span class="glyphicon glyphicon-remove pull-left"></span>
-					<h4 class="modal-title">ERROR</h4>
-				</div>
+        <div ng-show="failedBooking" class="modal fade bd-example-modal-sm" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <span class="glyphicon glyphicon-remove pull-left"></span>
+                        <h4 class="modal-title">ERROR</h4>
+                    </div>
 
-				<div class="modal-body">
-					<p>Something went wrong</p>
-				</div>
+                    <div class="modal-body">
+                        <p>Something went wrong</p>
+                    </div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Ok</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	<div class="container vertical-align" id="outer">
-		
-
-		<div class="jumbotron panel" id="bookingPanel">
-
-			<h4>Flight Details</h4>
-
-			<table>
-				<tr>
-					<td class="column1">XY Airlines</td>
-					<td class="column2">15.Dec</td>
-					<td class="cityAndTime">CPH<br><span>09:15</span></td>
-					<td class="column4">
-						<div class="arrowDate">
-							<div>1.45</div>
-							<div><img src="images/arrow.png" /></div>
-						</div>
-					</td>
-					<td class="cityAndTime column5">BUD<br><span>11:00</span></td>
-					<td><span>$ 99.99</span></td>
-				</tr>
-			</table>
+        <div ng-controller="BookingCtrl" class="container vertical-align" id="outer">
 
 
-			<h4>Passenger Info</h4>
+            <div class="jumbotron panel" id="bookingPanel">
+
+                <h4>Flight Details</h4>
+                
+                <h3>{{flightID}}</h3>
+                <table>
+                    <tr>
+                        <td class="column1">XY Airlines</td>
+                        <td class="column2">15.Dec</td>
+                        <td class="cityAndTime">CPH<br><span>09:15</span></td>
+                        <td class="column4">
+                            <div class="arrowDate">
+                                <div>1.45</div>
+                                <div><img src="images/arrow.png" /></div>
+                            </div>
+                        </td>
+                        <td class="cityAndTime column5">BUD<br><span>11:00</span></td>
+                        <td><span>$ 99.99</span></td>
+                    </tr>
+                </table>
 
 
-			<div>
-			    <div class="row clearfix">
-					<div class="col-md-12 column">
-						<table class="table table-bordered" id="tab_logic">
-							<thead>
-								<tr >
-									<th class="text-center">
-										First Name
-									</th>
-									<th class="text-center">
-										Last Name
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr id='addr0'>
-									<td>
-									<input type="text" name='name0'  placeholder='First Name' class="form-control input-sm"/>
-									</td>
-									<td>
-									<input type="text" name='mail0' placeholder='Last Name' class="form-control input-sm"/>
-									</td>
-								</tr>
-			                    <tr id='addr1'></tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<a id="add_row" class="btn btn-primary btn-xs pull-left"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Passenger</a><a id='delete_row' class="pull-right btn btn-primary btn-xs"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove Passenger</a>
-			</div>
-
-			<div class="clearfix"></div>
-
-			<div id="bookNow">
-				<a href="javascript:void(0)" class="btn btn-success">Book Now</a>
-			</div>
-		</div>
-
-	
-	</div>
+                <h4>Passenger Info</h4>
 
 
+                <div>
+                    <div class="row clearfix">
+                        <div class="col-md-12 column">
+                            <table class="table table-bordered" id="tab_logic">
+                                <thead>
+                                    <tr >
+                                        <th class="text-center">
+                                            First Name
+                                        </th>
+                                        <th class="text-center">
+                                            Last Name
+                                        </th>
+                                        <th class="text-center">
+                                            Phone
+                                        </th>
+                                        <th class="text-center">
+                                            Email
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id='addr0'>
+                                        <td>
+                                            <input ng-model="firstName" type="text" name='name0'  placeholder='First Name' class="form-control input-sm"/>
+                                        </td>
+                                        <td>
+                                            <input ng-model="lastName" type="text" name='mail0' placeholder='Last Name' class="form-control input-sm"/>
+                                        </td>
+                                        <td>
+                                            <input ng-model="phone" type="text" name='mail0' placeholder='+4527500852' class="form-control input-sm"/>
+                                        </td>
+                                        <td>
+                                            <input ng-model="email" type="text" name='mail0' placeholder='insert@email.here' class="form-control input-sm"/>
+                                        </td>
+                                    </tr>
+                                    <tr id='addr1'></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <a ng-click="addPassenger()" id="add_row" class="btn btn-primary btn-xs pull-left"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Passenger</a><a ng-click="removePassenger()" id='delete_row' class="pull-right btn btn-primary btn-xs"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove Passenger</a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div id="bookNow">
+                    <button class="btn btn-success" ng-click="sendBooking">Book Now</button>
+                </div>
+            </div>
 
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="javascript/moment.min.js"></script>
-	<script src="javascript/bootstrap.min.js"></script>
-	<script src="javascript/jquery.cycle.lite.js"></script>
-	<script src="javascript/scripts.js"></script>
-	<script src="javascript/scripts-booking.js"></script>
-</body>
+        </div>
+
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="javascript/moment.min.js"></script>
+        <script src="javascript/bootstrap.min.js"></script>
+        <script src="javascript/jquery.cycle.lite.js"></script>
+        <script src="javascript/scripts.js"></script>
+        <script src="javascript/scripts-booking.js"></script>
+    </body>
 
 </html>
