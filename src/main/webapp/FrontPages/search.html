@@ -1,0 +1,122 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width = device-width, initial-scale=1"> 
+
+	<title>Search</title>
+
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+	<!--[if lt IE 9]>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+	<div id="slideshow">
+		<img src="images/b1.jpg" class="bgM"/>
+		<img src="#" delayed-src="images/b2.jpg" class="bgM"/>
+	</div>
+
+
+
+	<div class="container vertical-align" id="outer">
+		
+
+		<div class="jumbotron panel" id="searchPanel">
+
+			<div class="form-group citySelector">
+				<label>From</label>
+				<input type="text" class="form-control" id="cityFrom">
+			</div>
+
+			<a href="javascript:void(0)" id="exchangeCities" class="imageButton">
+	          	<span class="glyphicon glyphicon-transfer"></span>
+	        </a>
+
+			<div class="form-group citySelector">
+				<label>To</label>
+				<input type="text" class="form-control" id="cityTo">
+			</div>
+
+			<div id="flightTypeToggle">
+				<div id="radioBtn" class="btn-group">
+					<a class="btn btn-primary btn-xs active" data-toggle="happy" data-title="Y">One-way</a>
+					<a class="btn btn-primary btn-xs notActive" data-toggle="happy" data-title="N">Round-trip</a>
+				</div>
+				<input type="hidden" name="happy" id="happy">
+			</div>
+
+			<div class="form-group pull-left" id="flightDate">
+				<label>Date</label>
+				<div class="container calendar">
+				    <div class="row">
+				        <div>
+				            <div class="form-group">
+				                <div class='input-group date' id='datetimepicker1'>
+				                    <input type='text' class="form-control" />
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
+				            </div>
+				        </div>
+				        
+				    </div>
+				</div>
+			</div>
+
+			<div class="form-group pull-left" id="returnDate">
+				<label>Return Date</label>
+				<div class="container calendar">
+				    <div class="row">
+				        <div>
+				            <div class="form-group">
+				                <div class='input-group date' id='datetimepicker2'>
+				                    <input type='text' class="form-control" />
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
+				            </div>
+				        </div>
+				        
+				    </div>
+				</div>
+			</div>
+
+			<div class="form-group pull-left" id="tickets">
+				<label>Tickets</label>
+				<input type="number" class="form-control">
+			</div>
+
+			<a href="results.html" class="btn btn-success pull-left" id="search">Search</a>
+
+		</div>
+
+	
+	</div>
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="javascript/moment.min.js"></script>
+	<script src="javascript/bootstrap.min.js"></script>
+	<script src="javascript/jquery-ui.min.js"></script>
+	<script src="javascript/bootstrap-datetimepicker.min.js"></script>
+	<script src="javascript/jquery.cycle.lite.js"></script>
+	<script src="javascript/scripts.js"></script>
+	<script src="javascript/scripts-search.js"></script>
+</body>
+
+</html>

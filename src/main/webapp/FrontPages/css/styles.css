@@ -1,0 +1,139 @@
+#slideshow, img.bgM {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index:-9999;
+}
+
+img.bgM:not(:first-child) {
+  visibility: hidden;
+}
+
+/*Bootstrap overrides*/
+.form-group {
+	margin: 0;
+}
+#flightTypeToggle a.btn {
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
+html, body {
+  height: 100%;
+}
+
+div#outer{
+	height: 100%;
+	width: 100%;
+}
+
+.panel {
+	background: rgb(143, 155, 190); /* This is for ie8 and below */
+	background: rgba(143, 155, 190, 0.9); 
+	margin: 0 auto;
+}
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+
+/*Search page*/
+
+#searchPanel{
+  padding-top: 20px;
+  padding-bottom: 30px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.calendar{
+	width: 140px;
+}
+
+div.citySelector{
+	width: 160px;
+}
+
+#returnDate{
+	display: none;
+}
+
+#exchangeCities{margin: 0 5px 4px 5px;}
+
+#flightTypeToggle, #flightDate, #returnDate, #tickets {margin-left: 10px;}
+#search {margin-left: 20px;}
+
+#flightTypeToggle{margin-bottom: 6px}
+#tickets{width: 70px}
+
+#radioBtn .notActive{
+  color: #3276b1;
+  background-color: #fff;
+}
+
+.ui-autocomplete {
+  max-height: 100px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0; 
+}
+
+
+/*Results page*/
+
+#fromTo > div {float:left;}
+div.city{font-size: x-large}
+div.changeDay{margin: 8px 8px 0px 8px;}
+#resultsPanel{text-align: center; padding-top: 20px; padding-bottom: 20px}
+#fromTo{display: inline-block;}
+#details{padding: 10px 20px 10px 20px; margin-top: 5px; margin-bottom: 15px;}
+#arrowDateHeading{margin-left: 8px; margin-right: 8px;}
+#arrowDateHeading div:first-child{margin-bottom: -6px; margin-top: -1px; font-size: small; text-align: left; margin-left: 5px;}
+#arrowDateHeading div:nth-child(2) {line-height: 10px; margin-bottom: 0px}
+
+.arrowDate {margin-left: 8px; margin-right: 8px;}
+.arrowDate div:first-child  {margin-bottom: -5px; font-size: x-small; text-align: left; margin-left: 10px;}
+.arrowDate div:nth-child(2) {line-height: 7px; margin-bottom: 10px}
+
+#resultsPanel td{text-align: left; padding-bottom: 10px}
+#resultsPanel .column1{width: 90px}
+#resultsPanel .column4{width: 60px}
+#resultsPanel .column5{width: 70px}
+
+
+/*Booking page*/
+
+#bookingPanel{padding-top: 20px; padding-bottom: 20px}
+#bookNow {text-align: center; margin-top: 10px;}
+#bookingPanel h4 {font-weight: bold;}
+#bookingPanel .arrowDate {margin-top: 5px;}
+.cityAndTime{text-align: center; line-height: 17px}
+#bookingPanel .column1 {padding-right: 22px;}
+#bookingPanel .column2 {padding-right: 22px;}
+#bookingPanel .column4 {padding-right: 5px;padding-left: 5px;}
+#bookingPanel .column5 {padding-right: 22px;}
+#tab_logic {margin-bottom: 5px;}
+#tab_logic th {font-size: small; font-weight: normal; padding: 2px;}
+#tab_logic td {padding: 5px;}
+.modal-header {padding: 8px 15px 5px 15px;}
+.modal-header .close {margin-top: 2px;}
+.modal-footer {border-top: none; text-align: center; padding-top:0;}
+
+#successModal .glyphicon {color: green; font-size: 1.5em; margin-right: 6px}
+#errorModal .glyphicon {color: red; font-size: 1.5em; margin-right: 6px; margin-top: 2px;}
+
+.modal-footer button {width: 55px;}

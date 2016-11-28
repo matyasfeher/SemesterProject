@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Flight Results</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script src="FrontPages/app.js" type="text/javascript"></script>
+    </head>
+    <body ng-app="FlightResults">
+        <div ng-controller="MainController">
+            <h2>Flight results</h2>
+            From: <select name="origin" ng-model="origin">
+                <option ng-repeat="airport in originAirports" value="{{airport}}">{{airport}}</option>
+            </select><br>
+            Date: <input type="text" ng-model="date"> (yyy-mm-dd) <br>
+            Passangers: <input type="text" ng-model="passangers"> <br>
+            <button ng-click="getFlights()">Search</button>
+            <h3>{{data.airline}}</h3>
+            <table style="width:60%" ng-show="data">
+                <thead>
+                <tr>
+                    <td>Flight Number</td>
+                    <td>From</td>
+                    <td>Flight time</td>
+                    <td>To</td>
+                    <td>Total price</td>
+                    
+                </tr>
+                </thead>
+                <tr ng-repeat="flight in data.flights"> 
+                    <td>{{flight.flightNumber}}</td>
+                    <td>{{flight.origin}}</td>
+                    <td>{{flight.traveltime}} min</td>
+                    <td>{{flight.destination}}</td>
+                    <td>{{flight.totalPrice | currency}}</td>
+                </tr>
+            </table>
+            {{errorMessage}}
+        </div>
+    </body>
+</html>

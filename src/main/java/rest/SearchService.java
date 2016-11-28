@@ -5,6 +5,10 @@
  */
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,7 +22,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+import org.json.simple.JSONObject;
+import request.Flights;
 import utils.Tester;
 
 /**
@@ -41,27 +48,46 @@ public class SearchService {
 
     /**
      * Retrieves representation of an instance of rest.SearchService
+     *
      * @param jsonString
      * @return an instance of java.lang.String
      */
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String Status() {
+        return "Hello from API";
+    }
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{date}/{tickets}")
-    public String getJson(String jsonString) {
+    public String getJson(@PathParam("from") String fromAirport, @PathParam("date") String date, @PathParam("tickets") int tickets) {
         //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        System.out.println("tickets = " + tickets);
+        System.out.println("date = " + date);
+        System.out.println("fromAirport = " + fromAirport);
+        Flights fsearch = new Flights();
+        JSONObject jsonFlights = fsearch.getFlightSite(fromAirport, date, tickets);
+
+        //Set pritty printing on the result
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonParser jp = new JsonParser();
+        JsonElement je = jp.parse(jsonFlights.toJSONString());
+        String prettyJsonString = gson.toJson(je);
+
+        return prettyJsonString;
     }
 
     /**
      * PUT method for updating or creating an instance of SearchService
+     *
      * @param content representation for the resource
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
     }
-    
+
     //Validates that the date confirms to
     public static boolean validateDate(String uncertainDate) {
         DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
