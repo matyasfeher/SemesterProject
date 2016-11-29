@@ -5,6 +5,8 @@
  */
 package utils;
 
+import entity.Airport;
+import facade.AirportFacade;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +27,7 @@ public class Tester {
         Flights flights = new Flights();
         JSONObject flightSite = flights.getFlightWebsite("cph", validDate, 2);
         System.out.println("Airline: "+flightSite.get("airline"));
+        
     }
     
     //Validates that the date confirms to
