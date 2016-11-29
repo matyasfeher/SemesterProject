@@ -30,11 +30,11 @@ public class Flights {
 //        
 //    }
 //    public static void main(String[] args) throws Exception {
-//        getFlightSite();
+//        getFlightWebsite();
 //
 //    }
 
-    public JSONObject getFlightSite(String fromAirport, String date, int passangers) {
+    public JSONObject getFlightWebsite(String fromAirport, String date, int passangers) {
         String jsonResponse = null;
         
         //validate date
@@ -45,7 +45,6 @@ public class Flights {
             json.put("message", "Invalid date format.");
             return json;
         }
-        
         try {
             String url = "http://airline-plaul.rhcloud.com/api/flightinfo/" + fromAirport + "/" + date + "/" + passangers;
 
@@ -53,7 +52,6 @@ public class Flights {
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
             con.setRequestMethod("GET");
-
             con.setRequestProperty("User-agent", USER_AGENT);
 
             int responseCode = con.getResponseCode();
@@ -79,7 +77,7 @@ public class Flights {
         JSONObject jsonObject;
         try {
             jsonObject = (JSONObject) parser.parse(jsonResponse);
-            System.out.println("AIrline: "+jsonObject.get("airline"));
+            System.out.println("Airline: "+jsonObject.get("airline"));
             return jsonObject;
         } catch (org.json.simple.parser.ParseException ex) {
             Logger.getLogger(Flights.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,7 +91,63 @@ public class Flights {
     }
     
     
-    //Validates that the date confirms to
+    public JSONObject getFlightBetweenTwoAirports(String fromAirport, String toAirport, String date, int passengers){
+        String jsonResponse = null;
+        
+        //validate date
+        if (!validateDate(date)) {
+            JSONObject json = new JSONObject();
+            json.put("httpError", "400");
+            json.put("errorCode", "3");
+            json.put("message", "Invalid date format.");
+            return json;
+        }
+        try {
+            String url = "http://airline-plaul.rhcloud.com/api/flightinfo/" + fromAirport + "/" + toAirport + "/" + date + "/" + passengers;
+            
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            
+            con.setRequestMethod("GET");
+            con.setRequestProperty("USER_AGENT", USER_AGENT);
+            
+            int responseCode = con.getResponseCode();
+            System.out.println("\nSending 'GET' request to URL : " + url);
+            System.out.println("Response code : " + responseCode);
+            
+            BufferedReader input = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+            
+            while((inputLine = input.readLine()) != null){
+                response.append(inputLine + "\n");
+            }
+            jsonResponse = response.toString();
+            input.close();
+            System.out.println(response.toString());
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+                JSONParser parser = new JSONParser();
+        JSONObject jsonObject;
+        try {
+            jsonObject = (JSONObject) parser.parse(jsonResponse);
+            System.out.println("Airline: "+jsonObject.get("airline"));
+            return jsonObject;
+        } catch (org.json.simple.parser.ParseException ex) {
+            Logger.getLogger(Flights.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        JSONObject json = new JSONObject();
+            json.put("httpError", "500");
+            json.put("errorCode", "4");
+            json.put("message", "Unknown error in flights().");
+            return json;
+    }
+
+
+//Validates that the date confirms to
     public static boolean validateDate(String uncertainDate) {
         DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         try {
