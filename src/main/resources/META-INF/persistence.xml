@@ -3,6 +3,7 @@
   <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entity.Airport</class>
+    <class>entity.Flight</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://139.59.212.194:3306/mysql?zeroDateTimeBehavior=convertToNull"/>

@@ -5,6 +5,8 @@
  */
 package utils;
 
+import entity.Airport;
+import facade.AirportFacade;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,10 +23,15 @@ import request.Flights;
 public class Tester {
     
     public static void main(String[] args) {
-        String validDate = "2017-01-06T08:00:00.000Z";
-        Flights flights = new Flights();
-        JSONObject flightSite = flights.getFlightSite("cph", validDate, 2);
-        System.out.println("Airline: "+flightSite.get("airline"));
+//        String validDate = "2017-01-06T08:00:00.000Z";
+//        Flights flights = new Flights();
+//        JSONObject flightSite = flights.getFlightSite("cph", validDate, 2);
+//        System.out.println("Airline: "+flightSite.get("airline"));
+        
+        AirportFacade af = new AirportFacade();
+        Airport a = af.getAirport("BUD");
+        System.out.println(a.getCode() +" ez az az az "+ a.getName() );
+        
     }
     
     //Validates that the date confirms to

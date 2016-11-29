@@ -8,12 +8,12 @@ angular.module('BookingApp', [])
             $scope.addPassenger = function () {
                 $scope.numberOfSeats++;
                 $scope.passengers = [{
-                        "firstName": $scope.firstName,
-                        "lastName": $scope.lastName
+                        "firstName": JSON.stringify($scope.firstName),
+                        "lastName": JSON.stringify($scope.lastName)
                     },
                     {
-                        "firstName": $scope.firstName + $scope.numberOfSeats,
-                        "lastName": $scope.lastName + $scope.numberOfSeats
+                        "firstName": JSON.stringify($scope.firstName + $scope.numberOfSeats),
+                        "lastName": JSON.stringify($scope.lastName + $scope.numberOfSeats)
                     }];
             };
             $scope.removePassenger = function () {
@@ -21,11 +21,11 @@ angular.module('BookingApp', [])
                 $scope.numberOfSeats--;
             };
             $scope.reservationJSON = {
-                "flightID": $scope.flightID,
-                "numberOfSeats": $scope.numberOfSeats,
-                "reserveeName": $scope.firstName + " " + $scope.lastName,
-                "reservePhone": $scope.phone,
-                "reserveeEmail": $scope.email,
+                "flightID": JSON.stringify($scope.flightID),
+                "numberOfSeats": JSON.stringify($scope.numberOfSeats),
+                "reserveeName": JSON.stringify($scope.firstName) + " " + JSON.stringify($scope.lastName),
+                "reservePhone": JSON.stringify($scope.phone),
+                "reserveeEmail": JSON.stringify($scope.email),
                 "passengers": [
                     $scope.passengers
                 ]

@@ -19,15 +19,14 @@ public class Airport implements Serializable {
     @Id
     private String code;
     private String name;
-    private String countryCode;
+    
 
     public Airport() {
     }
 
-    public Airport(String code, String name, String countryCode) {
+    public Airport(String code, String name) {
         this.code = code;
         this.name = name;
-        this.countryCode = countryCode;
     }
 
     public String getCode() {
@@ -44,16 +43,6 @@ public class Airport implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-    
-    
+    }   
     
 }

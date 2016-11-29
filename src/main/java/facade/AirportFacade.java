@@ -36,4 +36,10 @@ public class AirportFacade {
 
     }
 
+    public Airport getAirport(String code) {
+        EntityManager em = getEntityManager();
+        Airport a = em.find(Airport.class, code);
+        return a;
+    }
+
 }
