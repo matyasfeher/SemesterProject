@@ -19,6 +19,9 @@ public class AirportRequest {
 
     public static void main(String[] args) throws Exception {
         getAirports();
+        AirportFacade af = new AirportFacade();
+        Airport a = af.getAirportByCode("BUD");
+        System.out.println("IATA: "+a.getCode()+" @"+a.getName());
 
     }
 

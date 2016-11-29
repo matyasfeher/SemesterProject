@@ -8,6 +8,7 @@ package facade;
 import entity.Airport;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -36,10 +37,19 @@ public class AirportFacade {
 
     }
 
-    public Airport getAirport(String code) {
+    public Airport getAirportByCode(String code) {
         EntityManager em = getEntityManager();
-        Airport a = em.find(Airport.class, code);
+        Airport a;
+        Query query = em.createQuery("SELECT a FROM AIRPORT a WHERE a.name =:"+code);
+        a = (Airport) query.getSingleResult();
         return a;
     }
 
+    public Airport getAirportByName(String name) {
+        EntityManager em = getEntityManager();
+        Airport a;
+        Query query = em.createQuery("SELECT a FROM AIRPORT a WHERE a.name =:"+name);
+        a = (Airport) query.getSingleResult();
+        return a;
+    }
 }

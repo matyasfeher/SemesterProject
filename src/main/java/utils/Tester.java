@@ -27,6 +27,7 @@ public class Tester {
         Flights flights = new Flights();
         JSONObject flightSite = flights.getFlightWebsite("cph", validDate, 2);
         System.out.println("Airline: "+flightSite.get("airline"));
+        
     }
     
     //Validates that the date confirms to
