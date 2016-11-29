@@ -42,6 +42,8 @@ div#outer{
   align-items: center;
 }
 
+.im-centered { margin: auto; max-width: 300px;}
+
 
 /*Search page*/
 
@@ -113,6 +115,7 @@ div.changeDay{margin: 8px 8px 0px 8px;}
 #resultsPanel .column1{width: 90px}
 #resultsPanel .column4{width: 60px}
 #resultsPanel .column5{width: 70px}
+
 
 
 /*Booking page*/

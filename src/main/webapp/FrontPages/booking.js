@@ -1,6 +1,10 @@
 angular.module('BookingApp', [])
 
-        .controller('BookingCtrl', function ($http, $scope) {
+        .controller('BookingCtrl', function ($http, $scope, $location) {
+            $scope.flightID = "Unknown";
+            $scope.flightID = $location.url();
+            console.log($location.url());
+            
             $scope.succesfullBooking = false;
             $scope.failedBooking = false;
             $scope.numberOfSeats = 1;

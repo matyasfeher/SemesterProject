@@ -20,7 +20,7 @@
 
     </head>
 
-    <body ng-app="FlightResults">
+    <body ng-app="FlightSearch"  ng-controller="FlightController">
         <!--
                 <div id="slideshow">
                     <img src="images/b1.jpg" class="bgM"/>
@@ -28,18 +28,87 @@
                 </div>
         -->
 
-        
 
-        <div class="container"  ng-controller="MainController">
+        <div class="container">
+            {{message}}
+
+
+        </div>
+        <div class="container" >
             <div class="row">
-                <div class="col-sm-7">
-                    From: <select name="origin" ng-model="origin">
-                        <option ng-repeat="airport in originAirports" value="{{airport}}">{{airport}}</option>
-                    </select><br>
-                    Date: <input type="text" ng-model="date"> (yyy-mm-dd) <br>
-                    Passangers: <input type="text" ng-model="passangers"> <br>
-                    <button ng-click="getFlights()">Search</button>
+                <div class="col-sm-12">
 
+                    <div class="jumbotron panel" id="searchPanel">
+
+                        <div class="form-group citySelector">
+                            <label>From</label>
+                            <input type="text" class="form-control" id="cityFrom" ng-model="origin">
+
+                        </div>
+
+                        <a href="javascript:void(0)" id="exchangeCities" class="imageButton">
+                            <span class="glyphicon glyphicon-transfer"></span>
+                        </a>
+
+                        <div class="form-group citySelector">
+                            <label>To</label>
+                            <input type="text" class="form-control" id="cityTo">
+                        </div>
+
+                        <div id="flightTypeToggle">
+                            <div id="radioBtn" class="btn-group">
+                                <a class="btn btn-primary btn-xs active" data-toggle="happy" data-title="Y">One-way</a>
+                                <a class="btn btn-primary btn-xs notActive" data-toggle="happy" data-title="N">Round-trip</a>
+                            </div>
+                            <input type="hidden" name="happy" id="happy">
+                        </div>
+
+                        <div class="form-group pull-left" id="flightDate">
+                            <label>Date</label>
+                            <div class="container calendar">
+                                <div class="row">
+                                    <div>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' class="form-control" ng-model='date'/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group pull-left" id="returnDate">
+                            <label>Return Date</label>
+                            <div class="container calendar">
+                                <div class="row">
+                                    <div>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='datetimepicker2'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group pull-left" id="tickets">
+                            <label>Tickets</label>
+                            <input type="number" class="form-control" ng-model='passengers'>
+                        </div>
+
+                        <a href="results.html" class="btn btn-success pull-left" id="search" ng-click="getFlights()">Update search</a>
+
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -47,8 +116,6 @@
                     <div class="container" id="outer">
                         
                         <div class="jumbotron panel" id="resultsPanel" ng-repeat="flight in data.flights">
-
-                        
                             <div id="fromTo">    
                                 <div class="changeDay"><a href="javascript:void(0)" data-toggle="tooltip" title="Previous Day" class="imageButton"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
                                 <div class="city">{{flight.origin}}</div>
@@ -65,35 +132,26 @@
                                     <tr>
                                         <td class="column1"/><td/><td/><td class="column4"/><td class="column5"/><td/>
                                     </tr>
-
                                     <tr>
-                                        <td>{{data.airline}}</td><td><span data-toggle="tooltip" title="Departure Time">{{flight.date | date:'HH:mm'}}</span></td>
+                                        <td>{{data.airline}}</td>
+                                        <td><span data-toggle="tooltip" title="Departure Time">{{flight.date| date:'HH:mm'}}</span></td>
                                         <td>
                                             <div class="arrowDate" data-toggle="tooltip" title="Flight Duration">
                                                 <div>{{flight.traveltime}} min</div>
                                                 <div><img src="images/arrow.png" /></div>
                                             </div>
                                         </td>
-                                        <td><span data-toggle="tooltip" title="Arrival Time">{{getArrival(flight.date, flight.traveltime) | ArrivalTime}}</span></td><td><span data-toggle="tooltip" title="Price">{{flight.totalPrice | currency}}</span></td><td><a href="booking.html" class="btn btn-success btn-xs">Book</a></td>
+                                        <td><span data-toggle="tooltip" title="Arrival Time">{{getArrival(flight.date, flight.traveltime) | ArrivalTime}}</span></td>
+                                        <td><span data-toggle="tooltip" title="Price">{{flight.totalPrice| currency}}</span></td>
+                                        <td><a ng-href='booking.html?flightID={{flight.flightID}}'>Book</a></td>
                                     </tr>
-
                                 </table>
                             </div>
                         </div>
-
-
-
                     </div>
-
                 </div>
             </div>
         </div>
-
-
-
-
-
-
 
 
         <script src="javascript/moment.min.js"></script>
