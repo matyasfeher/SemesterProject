@@ -31,11 +31,11 @@ div#outer{
 	width: 100%;
 }
 
-.panel {
-	background: rgb(143, 155, 190); /* This is for ie8 and below */
+/*.panel {
+	background: rgb(143, 155, 190);  This is for ie8 and below 
 	background: rgba(143, 155, 190, 0.9); 
 	margin: 0 auto;
-}
+}*/
 
 .vertical-align {
   display: flex;
@@ -52,6 +52,8 @@ div#outer{
   padding-bottom: 30px;
   display: flex;
   align-items: flex-end;
+  background-color: #7C90A0;
+  color: #0D1F2D;
 }
 
 .calendar{
@@ -94,15 +96,47 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+/*Own styles*/
+.inline {float: left;}
+.fligt-details-panel {background: red;}
 
-/*Results page*/
+.translucent {
+    background-color: #fff;
+    background-color: rgba(255,255,255,0.5);
+}
+
+
+#results-panel {
+    background-color: #D3D4D9;
+}
+
+.center {
+    display: table;
+    margin: 0 auto;
+}
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
 
 #fromTo > div {float:left;}
-div.city{font-size: x-large}
+div.date{font-size: x-large;}
 div.changeDay{margin: 8px 8px 0px 8px;}
 #resultsPanel{text-align: center; padding-top: 20px; padding-bottom: 20px}
 #fromTo{display: inline-block;}
-#details{padding: 10px 20px 10px 20px; margin-top: 5px; margin-bottom: 15px;}
+#details{padding: 10px 20px 10px 20px; margin-top: 5px; margin-bottom: 15px;
+display:flex;;
+}
 #arrowDateHeading{margin-left: 8px; margin-right: 8px;}
 #arrowDateHeading div:first-child{margin-bottom: -6px; margin-top: -1px; font-size: small; text-align: left; margin-left: 5px;}
 #arrowDateHeading div:nth-child(2) {line-height: 10px; margin-bottom: 0px}
@@ -115,12 +149,14 @@ div.changeDay{margin: 8px 8px 0px 8px;}
 #resultsPanel .column1{width: 90px}
 #resultsPanel .column4{width: 60px}
 #resultsPanel .column5{width: 70px}
+#resultsPanel .column-sm{width: 40px}
+
 
 
 
 /*Booking page*/
 
-#bookingPanel{padding-top: 20px; padding-bottom: 20px}
+#bookingPanel{padding-top: 20px; padding-bottom: 20px; background-color: #D3D4D9;}
 #bookNow {text-align: center; margin-top: 10px;}
 #bookingPanel h4 {font-weight: bold;}
 #bookingPanel .arrowDate {margin-top: 5px;}
