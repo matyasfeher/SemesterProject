@@ -2,9 +2,9 @@ package entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -17,25 +17,25 @@ public class Flight implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private String flightNumber;
-    private String departure;
-    private String destination;
     private String seats;
-    private String flightTime;
-    private String price;
+    private int flightTime;
     
-    @OneToMany(cascade = CascadeType.PERSIST)
-    List<Reservation> reservationList;
+    @OneToMany
+    private List<FlightInstance> flightList;
+    @ManyToOne
+    private Airport from;
+    @ManyToOne
+    private Airport to;
 
-    public Flight() {
-    }
-
-    public Flight(String flightNumber, String departure, String destination, String seats, String flightTime, String price) {
+    public Flight(String flightNumber, String seats, int flightTime, Airport from, Airport to) {
         this.flightNumber = flightNumber;
-        this.departure = departure;
-        this.destination = destination;
         this.seats = seats;
         this.flightTime = flightTime;
-        this.price = price;
+        this.from = from;
+        this.to = to;
+    }
+
+    public Flight() {
     }
 
     public String getFlightNumber() {
@@ -46,22 +46,6 @@ public class Flight implements Serializable {
         this.flightNumber = flightNumber;
     }
 
-    public String getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(String departure) {
-        this.departure = departure;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
     public String getSeats() {
         return seats;
     }
@@ -70,30 +54,36 @@ public class Flight implements Serializable {
         this.seats = seats;
     }
 
-    public String getFlightTime() {
+    public int getFlightTime() {
         return flightTime;
     }
 
-    public void setFlightTime(String flightTime) {
+    public void setFlightTime(int flightTime) {
         this.flightTime = flightTime;
     }
 
-    public String getPrice() {
-        return price;
+    public List<FlightInstance> getFlightList() {
+        return flightList;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setFlightList(List<FlightInstance> flightList) {
+        this.flightList = flightList;
     }
 
-    public List<Reservation> getReservationList() {
-        return reservationList;
+    public Airport getFrom() {
+        return from;
     }
 
-    public void setReservationList(List<Reservation> reservationList) {
-        this.reservationList = reservationList;
+    public void setFrom(Airport from) {
+        this.from = from;
     }
 
-    
-    
+    public Airport getTo() {
+        return to;
+    }
+
+    public void setTo(Airport to) {
+        this.to = to;
+    }
+
 }

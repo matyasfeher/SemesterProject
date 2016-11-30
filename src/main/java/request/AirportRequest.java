@@ -21,7 +21,7 @@ public class AirportRequest {
         getAirports();
         AirportFacade af = new AirportFacade();
         Airport a = af.getAirportByCode("BUD");
-        System.out.println("IATA: "+a.getCode()+" @"+a.getName());
+        System.out.println("IATA: " + a.getCode() + " @" + a.getName());
 
     }
 
@@ -31,7 +31,7 @@ public class AirportRequest {
         AirportFacade airportFacade = new AirportFacade();
         try {
             String url = "https://iatacodes.org/api/v6/airports?api_key=7b9e8945-7b4d-41ab-b0cb-ee213f47b5b2";
- 
+
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -64,12 +64,10 @@ public class AirportRequest {
             JSONObject airport = (JSONObject) parser.parse(airportList.get(i).toString());
             String name = (String) airport.get("name");
             String code = (String) airport.get("code");
-            Airport a = new Airport(code, name);
+            Airport a = new Airport(code, name, null, null, null);
             airportFacade.addAirports(a);
         }
-       
-       
-       
+
     }
 
 }

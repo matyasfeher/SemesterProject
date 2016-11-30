@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-
-
 /**
  *
  * @author Acer
@@ -24,22 +22,14 @@ public class Passenger implements Serializable {
     private String lastName;
     
     @ManyToOne
-    private Passenger passenger;
-
-    public Passenger() {
-    }
+    private Reservation reservation;
 
     public Passenger(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Passenger() {
     }
 
     public String getFirstName() {
@@ -58,12 +48,14 @@ public class Passenger implements Serializable {
         this.lastName = lastName;
     }
 
-    public Passenger getPassenger() {
-        return passenger;
+    public Reservation getReservation() {
+        return reservation;
     }
 
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
+
+   
     
 }
