@@ -53,7 +53,7 @@ var ResultsController = angular.module('FlightSearch', [])
             $scope.reserveFlight = function (flightID) {
                 $http({
                     method: "GET",
-                    url: "api/allflights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
+                    url: "api/flights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
                 }).then(function successCallback(res) {
 
                 }, function errorCallback(res) {
@@ -82,7 +82,7 @@ var ResultsController = angular.module('FlightSearch', [])
 
                     $http({
                         method: "GET",
-                        url: "api/allflights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
+                        url: "api/flights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
                     }).then(function successCallback(res) {
                         $scope.showResultsPanel = true;
                         $scope.showLoadingSpinner = false;
@@ -98,7 +98,7 @@ var ResultsController = angular.module('FlightSearch', [])
                     if (typeof $scope.originAirport !== "undefined") {
                         $http({
                             method: "GET",
-                            url: "api/allflights/" + $scope.originAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
+                            url: "api/flights/" + $scope.originAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
                         }).then(function successCallback2(res) {
                             $scope.showResultsPanel = true;
                             $scope.showLoadingSpinner = false;
