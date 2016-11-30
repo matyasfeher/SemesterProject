@@ -34,24 +34,9 @@ import utils.Tester;
  * @author edipetres
  */
 //Called the path 'allflights' to differentiate from individual airlines' APIs
-@Path("allflights")
+@Path("flights")
 public class SearchService {
 
-    @Context
-    private UriInfo context;
-
-    /**
-     * Creates a new instance of SearchService
-     */
-    public SearchService() {
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.SearchService
-     *
-     * @param jsonString
-     * @return an instance of java.lang.String
-     */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String Status() {
@@ -65,7 +50,6 @@ public class SearchService {
         Flights fsearch = new Flights();
         JSONObject jsonFlights = fsearch.getFlightWebsite(fromAirport, date, tickets);
 
-        //Set pritty printing on the result
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonParser jp = new JsonParser();
         JsonElement je = jp.parse(jsonFlights.toJSONString());
@@ -81,28 +65,15 @@ public class SearchService {
         Flights flightsearch = new Flights();
         JSONObject jsonToAndFromFlights = flightsearch.getFlightBetweenTwoAirports(fromAirport, toAirport, date, tickets);
     
-                
-        //Set pritty printing on the result
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonParser jp = new JsonParser();
         JsonElement je = jp.parse(jsonToAndFromFlights.toJSONString());
         String prettyJsonString = gson.toJson(je);
 
         return prettyJsonString;      
-    }
-        
-    
-    /**
-     * PUT method for updating or creating an instance of SearchService
-     *
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
-    }
+    }        
 
-    //Validates that the date confirms to
+   
     public static boolean validateDate(String uncertainDate) {
         DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         try {

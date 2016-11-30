@@ -6,8 +6,10 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -19,15 +21,22 @@ public class Airport implements Serializable {
     @Id
     private String code;
     private String name;
-    private String countryCode;
+    private String timeZone;
+    private String country;
+    private String city;
+
+    @OneToMany
+    private List<Flight> flights;
 
     public Airport() {
     }
 
-    public Airport(String code, String name, String countryCode) {
+    public Airport(String code, String name, String timeZone, String country, String city) {
         this.code = code;
         this.name = name;
-        this.countryCode = countryCode;
+        this.timeZone = timeZone;
+        this.country = country;
+        this.city = city;
     }
 
     public String getCode() {
@@ -46,14 +55,36 @@ public class Airport implements Serializable {
         this.name = name;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public String getTimeZone() {
+        return timeZone;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
     }
-    
-    
-    
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public List<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
+    }
+   
 }

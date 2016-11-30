@@ -1,26 +1,26 @@
 package facade;
 
-import entity.Airport;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import entity.*;
 import javax.persistence.Query;
 
 /**
  *
  * @author Acer
  */
-public class AirportFacade {
-
+public class AirlineCoreFacade {
+    
     private EntityManager getEntityManager() {
         EntityManager em = Persistence.createEntityManagerFactory("pu").createEntityManager();
         return em;
     }
-
-    public void addAirports(Airport a) {
+    
+    public void addFlight(Flight f) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(a);
+            em.persist(f);
             em.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -29,22 +29,20 @@ public class AirportFacade {
                 em.close();
             }
         }
-
     }
-
-    public Airport getAirportByCode(String code) {
+    
+    public Flight getFlightByFlightNumber(String flightNumber) {
+        Flight f;
         EntityManager em = getEntityManager();
-        Airport a;
-        Query query = em.createQuery("SELECT a FROM AIRPORT a WHERE a.name =:"+code);
-        a = (Airport) query.getSingleResult();
-        return a;
+        Query query = em.createQuery("SELECT f FROM Flight f WHERE f.flightNumber = :"+flightNumber);
+        f = (Flight) query.getSingleResult();
+        System.out.println(f.toString());
+        return f;
     }
-
-    public Airport getAirportByName(String name) {
+    
+    public void deleteFlightByFlightNumber(String flightNumber) {
         EntityManager em = getEntityManager();
-        Airport a;
-        Query query = em.createQuery("SELECT a FROM AIRPORT a WHERE a.name =:"+name);
-        a = (Airport) query.getSingleResult();
-        return a;
+        Flight f = em.find(Flight.class, flightNumber);
+        em.remove(f);
     }
 }

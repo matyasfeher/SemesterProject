@@ -3,13 +3,18 @@
   <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entity.Airport</class>
+    <class>entity.Flight</class>
+    <class>entity.Passenger</class>
+    <class>entity.Reservation</class>
+    <class>entity.FlightInstance</class>
+    <class>entity.Airline</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://139.59.212.194:3306/mysql?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="matyas"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="test"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>
