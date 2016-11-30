@@ -22,7 +22,7 @@ public class AirportService {
     @GET
     @Path("{code}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAirportByCode(@PathParam("{code}") String code){
+    public String getAirportByCode(@PathParam("code") String code){
     Airport a = airportFacade.getAirportByCode(code);
     String json = gson.toJson(a);
     return json;

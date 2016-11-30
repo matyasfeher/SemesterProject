@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Persistence;
 import org.json.simple.JSONObject;
 import request.Flights;
 
@@ -23,11 +24,11 @@ import request.Flights;
 public class Tester {
     
     public static void main(String[] args) {
-        String validDate = "2017-01-06T08:00:00.000Z";
-        Flights flights = new Flights();
-        JSONObject flightSite = flights.getFlightWebsite("cph", validDate, 2);
-        System.out.println("Airline: "+flightSite.get("airline"));
-        
+//        String validDate = "2017-01-06T08:00:00.000Z";
+//        Flights flights = new Flights();
+//        JSONObject flightSite = flights.getFlightWebsite("cph", validDate, 2);
+//        System.out.println("Airline: "+flightSite.get("airline"));
+        Persistence.generateSchema("pu", null);
     }
     
     //Validates that the date confirms to
