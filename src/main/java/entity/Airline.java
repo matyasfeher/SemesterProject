@@ -17,9 +17,6 @@ public class Airline implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
     private String name;
 
     @OneToMany
@@ -28,8 +25,9 @@ public class Airline implements Serializable {
     public Airline() {
     }
 
-    public Airline(String name) {
+    public Airline(String name, List<Flight> airlineFlight) {
         this.name = name;
+        this.airlineFlightList = airlineFlight;
     }
 
     public String getName() {

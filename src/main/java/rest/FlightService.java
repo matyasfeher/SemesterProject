@@ -40,7 +40,7 @@ public class FlightService {
     public String addFlight(@PathParam("flightNumber") String flightNumber,
                             @PathParam("seats") String seats,
                             @PathParam("flightTime") int flightTime) {
-        Flight f = new Flight(flightNumber, seats, flightTime);
+        Flight f = null;
         acf.addFlight(f);
         String json = gson.toJson(f);
         return "{ \"status\": \"Done\" } "+json;

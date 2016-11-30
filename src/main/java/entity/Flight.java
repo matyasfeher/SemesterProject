@@ -27,10 +27,12 @@ public class Flight implements Serializable {
     @ManyToOne
     private Airport to;
 
-    public Flight(String flightNumber, String seats, int flightTime) {
+    public Flight(String flightNumber, String seats, int flightTime, Airport from, Airport to) {
         this.flightNumber = flightNumber;
         this.seats = seats;
         this.flightTime = flightTime;
+        this.from = from;
+        this.to = to;
     }
 
     public Flight() {

@@ -5,12 +5,13 @@
  */
 package utils;
 
-import entity.Airport;
-import facade.AirportFacade;
+import entity.*;
+import facade.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Persistence;
@@ -22,15 +23,17 @@ import request.Flights;
  * @author edipetres
  */
 public class Tester {
-    
+
     public static void main(String[] args) {
-//        String validDate = "2017-01-06T08:00:00.000Z";
-//        Flights flights = new Flights();
-//        JSONObject flightSite = flights.getFlightWebsite("cph", validDate, 2);
-//        System.out.println("Airline: "+flightSite.get("airline"));
-        Persistence.generateSchema("pu", null);
+        //Persistence.generateSchema("pu", null);
+        List<Flight> list;
+        AirlineCoreFacade acf = new AirlineCoreFacade();
+        list = acf.getAllFlight();
+        Airline a = new Airline("SemestAir", list);
+        acf.addAirline(a);
+
     }
-    
+
     //Validates that the date confirms to
     public static boolean validateDate(String uncertainDate) {
         DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");

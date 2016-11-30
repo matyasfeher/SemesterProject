@@ -35,15 +35,14 @@ public class AirportFacade {
     public Airport getAirportByCode(String code) {
         EntityManager em = getEntityManager();
         Airport a;
-        Query query = em.createQuery("SELECT a FROM AIRPORT a WHERE a.name =:"+code);
-        a = (Airport) query.getSingleResult();
+        a = em.find(Airport.class, code);
         return a;
     }
 
     public Airport getAirportByName(String name) {
         EntityManager em = getEntityManager();
         Airport a;
-        Query query = em.createQuery("SELECT a FROM AIRPORT a WHERE a.name =:"+name);
+        Query query = em.createQuery("SELECT a FROM AIRPORT a WHERE a.name =:" + name);
         a = (Airport) query.getSingleResult();
         return a;
     }
