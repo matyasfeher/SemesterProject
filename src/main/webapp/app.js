@@ -55,7 +55,7 @@ var ResultsController = angular.module('FlightSearch', [])
                     method: "GET",
                     url: "api/flights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
                 }).then(function successCallback(res) {
-
+                    
                 }, function errorCallback(res) {
 
                 });
