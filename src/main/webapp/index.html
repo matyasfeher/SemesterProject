@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Start Page</title>
+        <title>Flight Search</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="FrontPages/images/favicon.ico" type="image/x-icon" />
 
-        <script src="app.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.js"></script>
+        <script src="app.js" type="text/javascript"></script>
 
         <link href="FrontPages/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
         <link href="FrontPages/css/bootstrap.css" rel="stylesheet" type="text/css"/>
@@ -29,195 +31,239 @@
                         <div class="container vertical-align">
                             <div class="jumbotron panel" id="searchPanel">
 
-                                <div class="form-group citySelector">
-                                    <label>From</label>
-                                    <input type="text" class="form-control" id="cityFrom" ng-model="originAirport">
-                                </div>
+                                <form class="form-inline" data-toggle="validator">
 
-                                <a href="javascript:void(0)" id="exchangeCities" class="imageButton">
-                                    <span class="glyphicon glyphicon-transfer"></span>
-                                </a>
-
-                                <div class="form-group citySelector">
-                                    <label>To</label>
-                                    <input type="text" class="form-control" id="cityTo" ng-model="destAirport">
-                                </div>
-
-                                <div id="flightTypeToggle">
-                                    <div id="radioBtn" class="btn-group">
-                                        <a class="btn btn-primary btn-xs active" data-toggle="happy" data-title="Y">One-way</a>
-                                        <a class="btn btn-primary btn-xs notActive" data-toggle="happy" data-title="N">Round-trip</a>
+                                    <div class="form-group">
+                                        <label for="inputName" class="control-label">From</label><br>
+                                        <input type="text" class="form-control" ng-model="originAirport" placeholder="Copenhagen Airport" required>
+                                        <a href="javascript:void(0)" id="exchangeCities" class="imageButton">
+                                            <span class="glyphicon glyphicon-transfer"></span>
+                                        </a>
                                     </div>
-                                    <input type="hidden" name="happy" id="happy">
-                                </div>
-
-                                <div class="form-group pull-left" id="flightDate">
-                                    <label>Date</label>
-                                    <div class="container calendar">
-                                        <div class="row">
-                                            <div>
-                                                <div class="form-group">
-                                                    <div class='input-group date' id='datetimepicker1'>
-                                                        <input type='text' class="form-control" ng-model="dateFrom"/>
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                    <div class="form-group">
+                                        <label for="inputName" class="control-label">To</label><br>
+                                        <input type="text" class="form-control" ng-model="destAirport" placeholder="London City" >
+                                    </div>
+                                    &emsp;
+                                    <div class="form-group">
+                                        <label class="control-label">Date</label> <br>
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <input type='text' class="form-control" ng-model="dateFrom"/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group pull-left" id="returnDate">
-                                    <label>Return Date</label>
-                                    <div class="container calendar">
-                                        <div class="row">
-                                            <div>
-                                                <div class="form-group">
-                                                    <div class='input-group date' id='datetimepicker2'>
-                                                        <input type='text' class="form-control" ng-model="dateTo"/>
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
+                                    <div class="form-group" id="returnDate">
+                                        <label>Return Date</label>
+                                        <div class="container calendar">
+                                            <div class="row">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <div class='input-group date' id='datetimepicker2'>
+                                                            <input type='text' class="form-control" ng-model="dateTo" />
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    &emsp;
+                                    <div class="form-group" >
+                                        <label for="inputName" class="control-label">Passengers</label><br>
+                                        <input type="text" class="form-control" ng-model="passengerNo" size="8">
+                                    </div>
+                                    &emsp;&emsp;
 
-                                <div class="form-group pull-left" id="tickets">
-                                    <label>Tickets</label>
-                                    <input type="number" class="form-control" ng-model="passengerNo">
-                                </div>
+                                    <!--
+                                                                        <div id="flightTypeToggle">
+                                                                            <div id="radioBtn" class="btn-group">
+                                                                                <a class="btn btn-primary btn-xs active" data-toggle="happy" data-title="Y">One-way</a>
+                                                                                <a class="btn btn-primary btn-xs notActive" data-toggle="happy" data-title="N">Round-trip</a>
+                                                                            </div>
+                                                                            <input type="hidden" name="happy" id="happy">
+                                                                        </div>-->
 
-                                <a href="#" class="btn btn-success pull-left" ng-click="getFlights()" id="search">Search</a>
+                                    <div class="form-group">
+                                        <label for="inputName" class="control-label"></label><br>
+                                        <button type="submit" class="btn btn-primary" ng-click="getFlights()">Search</button>
+                                    </div>
+
+
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12">
-                    <br>
+
+                <div class="loader center" ng-show="showLoadingSpinner"></div>
+
+
+                <div class="col-sm-12"  ng-show="showResultsPanel">
                     <div class="container search-results">     
                         <div class="span12">      
-                            <div class="jumbotron panel  " id="resultsPanel" ng-repeat="flight in data.flights">
-                                <div id="fromTo">    
-                                    <div class="changeDay"><a href="javascript:void(0)" data-toggle="tooltip" title="Previous Day" class="imageButton"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
-                                    <div class="city">{{flight.origin}}</div>
-                                    <div id="arrowDateHeading">
-                                        <div>{{flight.date| date:'yyyy-MM-dd'}}</div>
-                                        <div><img src="FrontPages/images/arrowHeading.png" /></div>
-                                    </div>
-                                    <div class="city">{{flight.destination}}</div>
-                                    <div class="changeDay"><a href="javascript:void(0)" data-toggle="tooltip" title="Next Day" class="imageButton"><span class="glyphicon glyphicon-chevron-right"></span></a></div>
-                                </div>
+                            <div class="jumbotron panel" id="results-panel" >
+                                <div class="center">
 
-                                <div class="jumbotron" id="details" style="display:flex;justify-content:center;align-items:center;">  
-                                    <table>
-                                        <tr>
-                                            <td class="column1"/><td/><td/><td class="column4"/><td class="column5"/><td/>
-                                        </tr>
-                                        <tr>
-                                            <td>{{data.airline}}</td>
-                                            <td><span data-toggle="tooltip" title="Departure Time">{{flight.date| date:'HH:mm'}}</span></td>
-                                            <td>
-                                                <div class="arrowDate" data-toggle="tooltip" title="Flight Duration">
-                                                    <div>{{flight.traveltime}} min</div>
-                                                    <div><img src="FrontPages/images/arrow.png" /></div>
-                                                </div>
-                                            </td>
-                                            <td><span data-toggle="tooltip" title="Arrival Time">{{getArrival(flight.date, flight.traveltime) | ArrivalTime}}</span></td>
-                                            <td><span data-toggle="tooltip" title="Price">{{flight.totalPrice| currency}}</span></td>
-                                            <td><button ng-click="bookFlight()">Book</button></td>
-                                        </tr>
-                                    </table>
+
+                                    <div class="center" id="fromTo">
+                                        <div class="changeDay"><span class="glyphicon glyphicon-chevron-left"></span></div>
+                                        <div class="date"><span class="label label-success">{{data.flights[0].date| date:'dd-MMM-yyyy'}}</span></div>
+                                        <div class="changeDay"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
+                                    </div>
+
+                                    <div class="jumbotron" ng-repeat="flight in data.flights" id="details" style="display:flex;justify-content:center;align-items:center;" >  
+                                        <table>
+                                            <tr>
+                                                <td>{{data.airline}}</td>
+                                                <td><h4><span class="label label-primary">{{flight.origin}}</span></h4></td>
+                                                <td><span data-toggle="tooltip" title="Departure Time">{{flight.date| date:'HH:mm'}}</span></td>
+                                                <td>
+                                                    <div class="arrowDate" data-toggle="tooltip" title="Flight Duration">
+                                                        <div>{{flight.traveltime}} min</div>
+                                                        <div><img src="FrontPages/images/arrow.png" /></div>
+                                                    </div>
+                                                </td>
+                                                <td><span data-toggle="tooltip" title="Arrival Time">{{getArrivalTime(flight.date, flight.traveltime)}}</span></td>
+                                                <td><h4><span class="label label-primary">{{flight.destination}}</span></h4></td>
+                                                <td><span data-toggle="tooltip" title="Price">{{flight.totalPrice| currency}} ({{flight.numberOfSeats}} seat)</span></td>
+                                                <td><button class="btn btn-success" ng-click="bookFlight(flight.flightID)">Book</button></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
                                 </div>
                             </div>
                         </div> 
                     </div>
-
-
                 </div>
+
                 <div class="col-sm-12 booking-panel" ng-show="showBookingPanel"> 
-                    <div class="jumbotron panel" id="bookingPanel">
 
-                        <h4>Flight Details</h4>
 
-                        <h3>{{flightID}}</h3>
-                        <table>
-                            <tr>
-                                <td class="column1">{{airline}}</td>
-                                <td class="column2">{{depTime}}</td>
-                                <td class="cityAndTime">{{originAirport}}<br><span>09:15</span></td>
-                                <td class="column4">
-                                    <div class="arrowDate">
-                                        <div>1.45</div>
-                                        <div><img src="images/arrow.png" /></div>
+                    <div class="container">
+                        <div class="panel panel-default translucent">
+                            <div class="panel-body">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12">
+
+
+                                        <div class="container col-sm-4">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    Flight Details
+                                                </div>
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <tr> 
+                                                            <td>
+                                                                <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>
+                                                                <b>{{data.airline}}</b>  ({{flightToBook.flightNumber}})</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                                                                <b>{{flightToBook.origin}} 
+                                                                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> 
+                                                                    {{flightToBook.destination}}</b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span> 
+                                                                {{flightToBook.date| date:'HH:mm'}} &emsp;
+                                                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                                                {{flightToBook.date| date:'dd MMM yyyy'}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <b>{{flightToBook.totalPrice| currency}}</b> ({{flightToBook.numberOfSeats}} seat)
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="container col-sm-8">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    Passenger Details
+                                                </div>
+                                                <div class="panel-body">
+                                                    <table class="table table-bordered" id="tab_logic">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">
+                                                                    First Name
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Last Name
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Phone
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Email
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr id='addr0'>
+                                                                <td>
+                                                                    <input ng-model="firstName" type="text" name='name0'  placeholder='First Name' class="form-control input-sm"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input ng-model="lastName" type="text" name='mail0' placeholder='Last Name' class="form-control input-sm"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input ng-model="phone" type="text" name='mail0' placeholder='+4527500852' class="form-control input-sm"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input ng-model="email" type="text" name='mail0' placeholder='insert@email.here' class="form-control input-sm"/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr id='addr1'></tr>
+                                                        </tbody>
+                                                    </table>
+
+
+                                                    <a ng-click="addPassenger()" id="add_row" class="btn btn-primary btn-xs pull-left"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Passenger</a><a ng-click="removePassenger()" id='delete_row' class="pull-right btn btn-primary btn-xs"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove Passenger</a>
+
+
+                                                    <div class="clearfix"></div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="bookNow">
+                                            <button class="btn btn-success" ng-click="sendBooking">Book Now</button>
+                                        </div>
+
+
                                     </div>
-                                </td>
-                                <td class="cityAndTime column5">{{destAirport}}<br><span>11:00</span></td>
-                                <td><span>{{prices | currency}}</span></td>
-                            </tr>
-                        </table>
-                        <h4>Passenger Info</h4>
-
-                        <div>
-                            <div class="row clearfix">
-                                <div class="col-md-12 column">
-                                    <table class="table table-bordered" id="tab_logic">
-                                        <thead>
-                                            <tr >
-                                                <th class="text-center">
-                                                    First Name
-                                                </th>
-                                                <th class="text-center">
-                                                    Last Name
-                                                </th>
-                                                <th class="text-center">
-                                                    Phone
-                                                </th>
-                                                <th class="text-center">
-                                                    Email
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr id='addr0'>
-                                                <td>
-                                                    <input ng-model="firstName" type="text" name='name0'  placeholder='First Name' class="form-control input-sm"/>
-                                                </td>
-                                                <td>
-                                                    <input ng-model="lastName" type="text" name='mail0' placeholder='Last Name' class="form-control input-sm"/>
-                                                </td>
-                                                <td>
-                                                    <input ng-model="phone" type="text" name='mail0' placeholder='+4527500852' class="form-control input-sm"/>
-                                                </td>
-                                                <td>
-                                                    <input ng-model="email" type="text" name='mail0' placeholder='insert@email.here' class="form-control input-sm"/>
-                                                </td>
-                                            </tr>
-                                            <tr id='addr1'></tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
-                            <a ng-click="addPassenger()" id="add_row" class="btn btn-primary btn-xs pull-left"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Passenger</a><a ng-click="removePassenger()" id='delete_row' class="pull-right btn btn-primary btn-xs"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove Passenger</a>
-                        </div>
-
-                        <div class="clearfix"></div>
-
-                        <div id="bookNow">
-                            <button class="btn btn-success" ng-click="sendBooking">Book Now</button>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        
         <script src="FrontPages/javascript/moment.min.js" type="text/javascript"></script> 
         <script src="FrontPages/javascript/bootstrap.min.js" type="text/javascript"></script>
         <script src="FrontPages/javascript/bootstrap-datetimepicker.min.js" type="text/javascript"></script>

@@ -31,6 +31,7 @@ import org.junit.Test;
 
 public class AirlineIntegrationTest {
     
+    @Ignore
     @Test
     public void testFlightExistBetweenTwoAirports(){
         given()
@@ -48,7 +49,7 @@ public class AirlineIntegrationTest {
                         "origin", equalToIgnoringCase("cph"),
                         "destination", equalToIgnoringCase("stn"));
     }
-    
+    @Ignore
     @Test
     public void testFlightsFromAnAirport(){
         given()
@@ -65,7 +66,7 @@ public class AirlineIntegrationTest {
                         "traveltime", greaterThan(0),
                         "origin", equalToIgnoringCase("cph"));
     }
-    
+    @Ignore
     @Test
     public void testBooking(){
         given()

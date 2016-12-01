@@ -1,11 +1,14 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -16,7 +19,8 @@ public class FlightInstance implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private String flightId;
-    private String date;
+    @Temporal(TemporalType.DATE)
+    private Date date;
     private String time;
     private String availableSeats;
     private String price;
@@ -30,7 +34,7 @@ public class FlightInstance implements Serializable {
     public FlightInstance() {
     }
 
-    public FlightInstance(String flightId, String date, String time, String availableSeats, String price) {
+    public FlightInstance(String flightId, Date date, String time, String availableSeats, String price) {
         this.flightId = flightId;
         this.date = date;
         this.time = time;
@@ -46,11 +50,11 @@ public class FlightInstance implements Serializable {
         this.flightId = flightId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
