@@ -22,15 +22,28 @@ var ResultsController = angular.module('FlightSearch', [])
             $scope.dateTo = "2017-01-07";
             $scope.passengerNo = 1;
 
-            $scope.getArrival = function (date, traveltime) {
+
+            $scope.getArrivalTime = function (date, travelTime) {
+
                 var s = date.split("T");
                 s = s[1].split(".");
                 var time = s[0];
                 var timeUnits = time.split(":");
                 var finalTime = timeUnits[0] + ":" + timeUnits[1];
-                return finalTime + "%" + traveltime;
+                var hour = parseInt(timeUnits[0]);
+                var mins = parseInt(timeUnits[1]);
+                travelTime = parseInt(travelTime);
 
+                while (mins + travelTime > 60) {
+                    hour++;
+                    travelTime = travelTime - 60;
+                }
+                if (travelTime + mins < 60) {
+                    mins += travelTime;
+                }
+                return hour + ":" + mins;
             };
+
 
             $scope.bookFlight = function (flightID) {
 
@@ -72,7 +85,7 @@ var ResultsController = angular.module('FlightSearch', [])
 
                 console.log("From: " + $scope.originAirport);
                 console.log("To:" + $scope.destAirport);
-                if ($scope.destAirport !=="") {
+                if ($scope.destAirport !== "") {
                     console.log("OK!");
                 }
 
@@ -122,28 +135,30 @@ var ResultsController = angular.module('FlightSearch', [])
 
         })
 
+
+
         .filter('ArrivalTime', function () {
             return function (date, travelTime) {
                 console.log("INSIDE FILTER");
-                console.log("date: "+date);
-                console.log("tt: "+travelTime);
+                console.log("date: " + date);
+                console.log("tt: " + travelTime);
                 //var params = input.split("%");
-                var inputTime = params[0];
-                var minstoadd = params[1];
-
-                var time = inputTime.split(":");
-
-                var hours = Math.floor(minstoadd / 60);
-                var mins = minstoadd % 60;
-
-                var outputhrs = +time[0] + +hours;
-                var outputmins = +time[1] + +mins;
-                if (outputmins > 60) {
-                    outputmins = outputmins - 60;
-                    outputhrs++;
-                }
-                var output = outputhrs + ":" + outputmins;
-                return output;
+//                var inputTime = params[0];
+//                var minstoadd = params[1];
+//
+//                var time = inputTime.split(":");
+//
+//                var hours = Math.floor(minstoadd / 60);
+//                var mins = minstoadd % 60;
+//
+//                var outputhrs = +time[0] + +hours;
+//                var outputmins = +time[1] + +mins;
+//                if (outputmins > 60) {
+//                    outputmins = outputmins - 60;
+//                    outputhrs++;
+//                }
+//                var output = outputhrs + ":" + outputmins;
+                return"test";
             };
         });
 

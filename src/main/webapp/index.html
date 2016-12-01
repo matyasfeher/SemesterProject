@@ -129,7 +129,7 @@
                                                         <div><img src="FrontPages/images/arrow.png" /></div>
                                                     </div>
                                                 </td>
-                                                <td><span data-toggle="tooltip" title="Arrival Time">{{flight.date, flight.traveltime | ArrivalTime}}</span></td>
+                                                <td><span data-toggle="tooltip" title="Arrival Time">{{getArrivalTime(flight.date, flight.traveltime)}}</span></td>
                                                 <td><h4><span class="label label-primary">{{flight.destination}}</span></h4></td>
                                                 <td><span data-toggle="tooltip" title="Price">{{flight.totalPrice| currency}} ({{flight.numberOfSeats}} seat)</span></td>
                                                 <td><button class="btn btn-success" ng-click="bookFlight(flight.flightID)">Book</button></td>
