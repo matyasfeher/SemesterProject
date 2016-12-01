@@ -24,7 +24,7 @@ public class Reservation implements Serializable {
     @OneToMany
     private List<Passenger> passengerList;
     
-    private FlightInstance flightInstance;
+    //private FlightInstance flightInstance;
 
     public Reservation(String totalPrice, List<Passenger> passengerList) {
         this.totalPrice = totalPrice;
