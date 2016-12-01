@@ -77,7 +77,7 @@ var ResultsController = angular.module('FlightSearch', [])
                 }
 
 
-                if (typeof $scope.destAirport !== "undefined") {
+                if (typeof $scope.destAirport != null) {
 
 
                     $http({
@@ -123,8 +123,11 @@ var ResultsController = angular.module('FlightSearch', [])
         })
 
         .filter('ArrivalTime', function () {
-            return function (input) {
-                var params = input.split("%");
+            return function (date, travelTime) {
+                console.log("INSIDE FILTER");
+                console.log("date: "+date);
+                console.log("tt: "+travelTime);
+                //var params = input.split("%");
                 var inputTime = params[0];
                 var minstoadd = params[1];
 
