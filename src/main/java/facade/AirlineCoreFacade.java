@@ -47,7 +47,15 @@ public class AirlineCoreFacade {
         }
     }
     
-    public List<FlightInstance> getFlightInstanceByDate(Flight f){
+    public List<FlightInstance> getFlightInstancesBetweenAirports(String from, String to, String date) {
+        Flight flight = getFlight(from, to);
+        List<FlightInstance> flightInstances = getFlightInstancesByFlight(flight);
+        return flightInstances;
+    }
+    
+   
+    
+    public List<FlightInstance> getFlightInstancesByFlight(Flight f) {
     List<FlightInstance> list = null;
         try {
             EntityManager em = getEntityManager();

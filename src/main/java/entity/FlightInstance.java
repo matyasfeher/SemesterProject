@@ -42,6 +42,14 @@ public class FlightInstance implements Serializable {
         this.price = price;
     }
 
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
+
     public String getFlightId() {
         return flightId;
     }

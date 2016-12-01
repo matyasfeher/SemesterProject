@@ -34,20 +34,33 @@ public class DBTester {
 //            System.out.println("Flight: " + f.getFlightNumber() + " from: " + f.getFrom().getCode());
 //        }
 //        
-        List<Flight> allFlightsFrom = facade.getAllFlightsFrom("BUD");
-        System.out.println("-------ALL FLIGHT FROM CPH-------");
-        for(Flight f : allFlightsFrom) {
-            List<FlightInstance> flightInstanceByDate = facade.getFlightInstanceByDate(f);
-            System.out.println("Flight instance response: "+ flightInstanceByDate.size());
-            for (FlightInstance fi :  flightInstanceByDate) {
-                System.out.println("FlightInstance: "+ fi.getTime()+ ", " + fi.getPrice());
-            }
-        }        
-        System.out.println("-------ALL FLIGHT FROM CPH-------");
+//        List<Flight> allFlightsFrom = facade.getAllFlightsFrom("BUD");
+//        System.out.println("-------ALL FLIGHT FROM CPH-------");
+//        for(Flight f : allFlightsFrom) {
+//            List<FlightInstance> flightInstanceByDate = facade.getFlightInstances(f);
+//            System.out.println("Flight instance response: "+ flightInstanceByDate.size());
+//            for (FlightInstance fi :  flightInstanceByDate) {
+//                System.out.println("FlightInstance: "+ fi.getTime()+ ", " + fi.getPrice());
+//            }
+//        }        
+//        System.out.println("-------ALL FLIGHT FROM CPH-------");
 //
 //        Flight flight = facade.getFlight("CPH", "BUD");
 //        System.out.println("flight = " + flight.getFlightNumber() + " seats: " + flight.getSeats());
-
+        List<FlightInstance> flightInstancesBetweenAirports = facade.getFlightInstancesBetweenAirports("CPH", "BUD", "");
+        for (FlightInstance fi : flightInstancesBetweenAirports) {
+            System.out.println("------------------------------------------");
+            System.out.println("From: " + fi.getFlight().getFrom().getCity() + " code: "+fi.getFlight().getFrom().getCode());
+            System.out.println("To: " + fi.getFlight().getTo().getCity() + " code: "+fi.getFlight().getTo().getCode());
+            System.out.println("Seats: " + fi.getFlight().getSeats());
+            System.out.println("Flight number: " + fi.getFlight().getFlightNumber());
+            System.out.println("Flight time: " + fi.getFlight().getFlightTime());
+            System.out.println("Available seats: " + fi.getAvailableSeats());
+            System.out.println("Flight id: " + fi.getFlightId());
+            System.out.println("Price: " + fi.getPrice());
+            System.out.println("Time: " + fi.getTime());
+            System.out.println("Date: " + fi.getDate());
+        }
        
     }
 
