@@ -35,7 +35,7 @@ import utils.Tester;
  */
 //Called the path 'allflights' to differentiate from individual airlines' APIs
 @Path("searchflights")
-public class SearchService {
+public class MetaSearchService {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)

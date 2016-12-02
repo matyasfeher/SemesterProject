@@ -8,7 +8,7 @@ package utils;
 import entity.Airline;
 import entity.Flight;
 import entity.FlightInstance;
-import facade.AirlineCoreFacade;
+import facade.AirlineDBFacade;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,7 +28,7 @@ public class DBTester {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu", null);
         EntityManager em = emf.createEntityManager();
 //        
-        AirlineCoreFacade facade = new AirlineCoreFacade();
+        AirlineDBFacade facade = new AirlineDBFacade();
 //        List<Flight> allFlight = facade.getAllFlight();
 //        for (Flight f : allFlight) {
 //            System.out.println("Flight: " + f.getFlightNumber() + " from: " + f.getFrom().getCode());

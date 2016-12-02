@@ -11,7 +11,7 @@ import javax.persistence.Query;
  *
  * @author Acer
  */
-public class AirlineCoreFacade {
+public class AirlineDBFacade {
 
     private EntityManager getEntityManager() {
         EntityManager em = Persistence.createEntityManagerFactory("pu").createEntityManager();

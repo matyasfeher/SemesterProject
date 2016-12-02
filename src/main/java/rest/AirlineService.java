@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import entity.*;
-import facade.AirlineCoreFacade;
+import facade.AirlineDBFacade;
 import facade.AirportFacade;
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -21,10 +21,10 @@ import org.json.simple.JSONObject;
  * @author Acer
  */
 @Path("flights")
-public class FlightService {
+public class AirlineService {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private static final AirlineCoreFacade acf = new AirlineCoreFacade();
+    private static final AirlineDBFacade acf = new AirlineDBFacade();
     private static final AirportFacade af = new AirportFacade();
 
     @GET
@@ -48,7 +48,7 @@ public class FlightService {
         String json = null;
         JSONArray flights = new JSONArray();
 
-        AirlineCoreFacade facade = new AirlineCoreFacade();
+        AirlineDBFacade facade = new AirlineDBFacade();
         List<FlightInstance> flightList = facade.getFlightInstancesBetweenAirports(from, to, date);
 
         for (FlightInstance fi : flightList) {
