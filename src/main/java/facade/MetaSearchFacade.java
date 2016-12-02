@@ -36,7 +36,7 @@ public class MetaSearchFacade {
 
     public static void main(String[] args) {
         MetaSearchFacade mtf = new MetaSearchFacade();
-        JSONObject searchAllAirlines = mtf.searchAllAirlines("CPH", "STN", "2017-01-01", 1);
+        JSONObject searchAllAirlines = mtf.searchAllAirlines("CPH", null, "2017-01-01", 1);
         //System.out.println("RESPONSE: \n" + searchAllAirlines);
     }
 
@@ -58,7 +58,7 @@ public class MetaSearchFacade {
         
         JSONParser parser = new JSONParser();
 
-        if (!to.equals("")) {
+        if (to != null) {
             url = url + from + "/" + to + "/" + date + "T00:00:00.000Z" + "/" + passengers;
         } else {
             url = url + from + "/" + date + "T00:00:00.000Z" + "/" + passengers;
@@ -86,7 +86,7 @@ public class MetaSearchFacade {
                 }
                 JSONerrorResponse = errorResponse.toString();
             } catch (NullPointerException ex) {
-
+                
             }
 
             //Create response text with status 200 OK
@@ -109,10 +109,6 @@ public class MetaSearchFacade {
                 }
             }
 
-            //Set pretty printing on json string
-//            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//            jsonResponse = gson.toJson(jsonResponse);
-            
             JSONObject jsonObjResponse = null;
             try {
                 jsonObjResponse = (JSONObject) parser.parse(jsonResponse);
