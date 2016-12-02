@@ -45,6 +45,8 @@ public class Flights {
             json.put("message", "Invalid date format.");
             return json;
         }
+        
+        //Connect to Lars airlines
         try {
             String url = "http://airline-plaul.rhcloud.com/api/flightinfo/" + fromAirport + "/" + date + "/" + passangers;
 
@@ -72,6 +74,8 @@ public class Flights {
             e.printStackTrace();
         }
 
+        
+        
         //Work with received JSON object
         JSONParser parser = new JSONParser();
         JSONObject jsonObject;

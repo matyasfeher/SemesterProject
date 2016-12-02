@@ -15,12 +15,16 @@ var ResultsController = angular.module('FlightSearch', [])
             $scope.showBookingPanel = false;
             $scope.showResultsPanel = false;
             $scope.showLoadingSpinner = false;
+            $scope.showAlertBox = false;
 
             $scope.originAirport = "CPH";
-            $scope.destAirport;
+            $scope.destAirport = "";
             $scope.dateFrom = "2017-01-01";
             $scope.dateTo = "2017-01-07";
             $scope.passengerNo = 1;
+
+            $scope.alertMessageTitle = "";
+            $scope.alertMessage = "";
 
 
             $scope.getArrivalTime = function (date, travelTime) {
@@ -62,13 +66,17 @@ var ResultsController = angular.module('FlightSearch', [])
                 $scope.showBookingPanel = true;
             };
 
+            $scope.dismissAlertBox = function () {
+                $scope.showAlertBox = false;
+            };
+
             //RESERVATION
             $scope.reserveFlight = function (flightID) {
                 $http({
                     method: "GET",
-                    url: "api/flights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
+                    url: "api/searchflights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
                 }).then(function successCallback(res) {
-                    
+
                 }, function errorCallback(res) {
 
                 });
@@ -83,35 +91,61 @@ var ResultsController = angular.module('FlightSearch', [])
                 //REMOVE CODE ABOVE
                 $scope.showLoadingSpinner = true;
 
-                console.log("From: " + $scope.originAirport);
-                console.log("To:" + $scope.destAirport);
-                if ($scope.destAirport !== "") {
-                    console.log("OK!");
-                }
 
-
-                if (typeof $scope.destAirport != null) {
-
-
+                if ($scope.destAirport != "") {
                     $http({
                         method: "GET",
-                        url: "api/flights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
+                        url: "api/searchflights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
                     }).then(function successCallback(res) {
                         $scope.showResultsPanel = true;
                         $scope.showLoadingSpinner = false;
+
                         $scope.data = res.data;
-                        $scope.errorMessage = "";
+
+
+
+                        $scope.alertMessageTitle = "";
+                        $scope.alertMessage = "";
+
                         console.log("Successful callback: " + res.data);
-                    }, function errorCallback(res) {
+                    }
+                    , function errorCallback(res) {
                         $scope.showLoadingSpinner = false;
                         $scope.error = res.status + ": " + res.data.statusText;
                         $scope.errorMessage = "Invalid request. (" + res.status + ")";
+                        
+                        $scope.showAlertBox = true;
+                        console.log("errorcode =" + $scope.data.errorCode);
+
+                        if (res.status == "500") {
+                            console.log("error 500 inside!");
+                            switch ($scope.data.errorCode) {
+                                case 1:
+                                    $scope.alertMessageTitle = "Hoops!";
+                                    $scope.alertMessage = "No flights found.";
+                                    break;
+                                case 2:
+                                    $scope.alertMessageTitle = "Hoops!";
+                                    $scope.alertMessage = "None or not enough available tickets.";
+                                    break;
+                                case 3:
+                                    $scope.alertMessageTitle = "Hoops!";
+                                    $scope.alertMessage = "Illegal input. Try changing your search.";
+                                    break;
+                                case 4:
+                                    $scope.alertMessageTitle = "Hoops!";
+                                    $scope.alertMessage = "Unknown error.";
+                                    break;
+                            }
+                            ;
+                        }
+
                     });
                 } else {
                     if (typeof $scope.originAirport !== "undefined") {
                         $http({
                             method: "GET",
-                            url: "api/flights/" + $scope.originAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
+                            url: "api/searchflights/" + $scope.originAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
                         }).then(function successCallback2(res) {
                             $scope.showResultsPanel = true;
                             $scope.showLoadingSpinner = false;

@@ -108,9 +108,16 @@
                     <div class="container search-results">     
                         <div class="span12">      
                             <div class="jumbotron panel" id="results-panel" >
+
+                                
+
                                 <div class="center">
 
-
+                                    <div class="alert alert-warning alert-dismissible" role="alert" ng-show="showAlertBox">
+                                        <button type="button" ng-click="dismissAlertBox()" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <strong>{{alertMessageTitle}}</strong> {{alertMessage}}
+                                    </div>
+                                    
                                     <div class="center" id="fromTo">
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-left"></span></div>
                                         <div class="date"><span class="label label-success">{{data.flights[0].date| date:'dd-MMM-yyyy'}}</span></div>
@@ -263,7 +270,7 @@
             </div>
         </div>
 
-        
+
         <script src="FrontPages/javascript/moment.min.js" type="text/javascript"></script> 
         <script src="FrontPages/javascript/bootstrap.min.js" type="text/javascript"></script>
         <script src="FrontPages/javascript/bootstrap-datetimepicker.min.js" type="text/javascript"></script>

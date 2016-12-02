@@ -34,7 +34,7 @@ import utils.Tester;
  * @author edipetres
  */
 //Called the path 'allflights' to differentiate from individual airlines' APIs
-@Path("flights")
+@Path("searchflights")
 public class SearchService {
 
     @GET
