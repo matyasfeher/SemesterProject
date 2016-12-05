@@ -27,7 +27,7 @@ public class Tester {
     public static void main(String[] args) {
         //Persistence.generateSchema("pu", null);
         List<Flight> list;
-        AirlineCoreFacade acf = new AirlineCoreFacade();
+        AirlineDBFacade acf = new AirlineDBFacade();
         list = acf.getAllFlight();
         Airline a = new Airline("SemestAir", list);
         acf.addAirline(a);
