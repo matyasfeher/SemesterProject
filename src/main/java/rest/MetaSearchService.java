@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import facade.AirlineDBFacade;
+import facade.MetaSearchFacade;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,7 +50,9 @@ public class MetaSearchService {
     @Path("{from}/{date}/{tickets}")
     public String getJson(@PathParam("from") String fromAirport, @PathParam("date") String date, @PathParam("tickets") int tickets) {
         Flights fsearch = new Flights();
-        JSONObject jsonFlights = fsearch.getFlightWebsite(fromAirport, date, tickets);
+        MetaSearchFacade msf = new MetaSearchFacade();
+        //JSONObject jsonFlights = fsearch.getFlightWebsite(fromAirport, date, tickets);
+        JSONObject jsonFlights = msf.searchAllAirlines(fromAirport, null, date, tickets);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonParser jp = new JsonParser();

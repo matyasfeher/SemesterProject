@@ -10,6 +10,10 @@ import javax.ws.rs.core.MediaType;
 import entity.*;
 import facade.AirlineDBFacade;
 import facade.AirportFacade;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -50,17 +54,20 @@ public class AirlineService {
 
         AirlineDBFacade facade = new AirlineDBFacade();
         List<FlightInstance> flightList = facade.getFlightInstancesBetweenAirports(from, to, date);
+        
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
 
         for (FlightInstance fi : flightList) {
             JSONObject singleFlight = new JSONObject();
             singleFlight.put("flightID", fi.getFlightId());
             singleFlight.put("flightNumber", fi.getFlight().getFlightNumber());
-            singleFlight.put("date", fi.getDate().toString());
-            singleFlight.put("numberOfSeats", "???");
+            singleFlight.put("date", df.format(fi.getDate()));
+            singleFlight.put("numberOfSeats", fi.getAvailableSeats());
             singleFlight.put("totalPrice", fi.getPrice());
             singleFlight.put("travelTime", fi.getFlight().getFlightTime());
             singleFlight.put("origin", fi.getFlight().getFrom().getCode());
-            singleFlight.put("originName", fi.getFlight().getFrom().getCity());
+            //singleFlight.put("originName", fi.getFlight().getFrom().getCity());
             singleFlight.put("destination", fi.getFlight().getTo().getCode());
             singleFlight.put("destinationName", fi.getFlight().getTo().getCity());
             flights.add(singleFlight);

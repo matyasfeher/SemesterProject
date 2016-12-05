@@ -90,60 +90,16 @@ var ResultsController = angular.module('FlightSearch', [])
 //                return;
                 //REMOVE CODE ABOVE
                 $scope.showLoadingSpinner = true;
-
-
+                
+                
                 if ($scope.destAirport != "") {
+                    //Have destination airport
+                    console.log("Have destination airport");
+                }
+                else {
+                    //Dont have destination airport
+                    console.log("Dont have destination airport");
                     $http({
-                        method: "GET",
-                        url: "api/searchflights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
-                    }).then(function successCallback(res) {
-                        $scope.showResultsPanel = true;
-                        $scope.showLoadingSpinner = false;
-
-                        $scope.data = res.data;
-
-
-
-                        $scope.alertMessageTitle = "";
-                        $scope.alertMessage = "";
-
-                        console.log("Successful callback: " + res.data);
-                    }
-                    , function errorCallback(res) {
-                        $scope.showLoadingSpinner = false;
-                        $scope.error = res.status + ": " + res.data.statusText;
-                        $scope.errorMessage = "Invalid request. (" + res.status + ")";
-                        
-                        $scope.showAlertBox = true;
-                        console.log("errorcode =" + $scope.data.errorCode);
-
-                        if (res.status == "500") {
-                            console.log("error 500 inside!");
-                            switch ($scope.data.errorCode) {
-                                case 1:
-                                    $scope.alertMessageTitle = "Hoops!";
-                                    $scope.alertMessage = "No flights found.";
-                                    break;
-                                case 2:
-                                    $scope.alertMessageTitle = "Hoops!";
-                                    $scope.alertMessage = "None or not enough available tickets.";
-                                    break;
-                                case 3:
-                                    $scope.alertMessageTitle = "Hoops!";
-                                    $scope.alertMessage = "Illegal input. Try changing your search.";
-                                    break;
-                                case 4:
-                                    $scope.alertMessageTitle = "Hoops!";
-                                    $scope.alertMessage = "Unknown error.";
-                                    break;
-                            }
-                            ;
-                        }
-
-                    });
-                } else {
-                    if (typeof $scope.originAirport !== "undefined") {
-                        $http({
                             method: "GET",
                             url: "api/searchflights/" + $scope.originAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
                         }).then(function successCallback2(res) {
@@ -152,14 +108,82 @@ var ResultsController = angular.module('FlightSearch', [])
 
                             $scope.data = res.data;
                             $scope.errorMessage = "";
-
+                            console.log(res.data);
 
                         }, function errorCallback2(res) {
                             $scope.error = res.status + ": " + res.data.statusText;
                             $scope.errorMessage = "Invalid request. (" + res.status + ")";
                         });
-                    }
                 }
+
+//                if ($scope.destAirport != "") {
+//                    $http({
+//                        method: "GET",
+//                        url: "api/searchflights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
+//                    }).then(function successCallback(res) {
+//                        $scope.showResultsPanel = true;
+//                        $scope.showLoadingSpinner = false;
+//
+//                        $scope.data = res.data;
+//
+//
+//
+//                        $scope.alertMessageTitle = "";
+//                        $scope.alertMessage = "";
+//
+//                        console.log("Successful callback: " + res.data);
+//                    }
+//                    , function errorCallback(res) {
+//                        $scope.showLoadingSpinner = false;
+//                        $scope.error = res.status + ": " + res.data.statusText;
+//                        $scope.errorMessage = "Invalid request. (" + res.status + ")";
+//                        
+//                        $scope.showAlertBox = true;
+//                        console.log("errorcode =" + $scope.data.errorCode);
+//
+//                        if (res.status == "500") {
+//                            console.log("error 500 inside!");
+//                            switch ($scope.data.errorCode) {
+//                                case 1:
+//                                    $scope.alertMessageTitle = "Hoops!";
+//                                    $scope.alertMessage = "No flights found.";
+//                                    break;
+//                                case 2:
+//                                    $scope.alertMessageTitle = "Hoops!";
+//                                    $scope.alertMessage = "None or not enough available tickets.";
+//                                    break;
+//                                case 3:
+//                                    $scope.alertMessageTitle = "Hoops!";
+//                                    $scope.alertMessage = "Illegal input. Try changing your search.";
+//                                    break;
+//                                case 4:
+//                                    $scope.alertMessageTitle = "Hoops!";
+//                                    $scope.alertMessage = "Unknown error.";
+//                                    break;
+//                            }
+//                            ;
+//                        }
+//
+//                    });
+//                } else {
+//                    if (typeof $scope.originAirport !== "undefined") {
+//                        $http({
+//                            method: "GET",
+//                            url: "api/searchflights/" + $scope.originAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
+//                        }).then(function successCallback2(res) {
+//                            $scope.showResultsPanel = true;
+//                            $scope.showLoadingSpinner = false;
+//
+//                            $scope.data = res.data;
+//                            $scope.errorMessage = "";
+//                            console.log(res.data);
+//
+//                        }, function errorCallback2(res) {
+//                            $scope.error = res.status + ": " + res.data.statusText;
+//                            $scope.errorMessage = "Invalid request. (" + res.status + ")";
+//                        });
+//                    }
+//                }
 
             };
 

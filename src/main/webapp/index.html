@@ -120,7 +120,13 @@
                                     
                                     <div class="center" id="fromTo">
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-left"></span></div>
-                                        <div class="date"><span class="label label-success">{{data.flights[0].date| date:'dd-MMM-yyyy'}}</span></div>
+                                        <div class="date"><span class="label label-success">{{data.flights[0].date| date:'yyyy-MM-dd'}}</span></div>
+                                        <div class="changeDay"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
+                                    </div>
+                                    haho {{data.results[1]}}
+                                    <div class="center" id="fromTo" ng-show="">
+                                        <div class="changeDay"><span class="glyphicon glyphicon-chevron-left"></span></div>
+                                        <div class="date"><span class="label label-info">{{data.results[1]}}haho</span></div>
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
                                     </div>
 
