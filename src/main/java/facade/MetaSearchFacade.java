@@ -59,9 +59,9 @@ public class MetaSearchFacade {
         JSONParser parser = new JSONParser();
 
         if (to != null) {
-            url = url + from + "/" + to + "/" + date + "T00:00:00.000Z" + "/" + passengers;
+            url = url + from + "/" + to + "/" + date + "/" + passengers;
         } else {
-            url = url + from + "/" + date + "T00:00:00.000Z" + "/" + passengers;
+            url = url + from + "/" + date + "/" + passengers;
         }
 
         try {

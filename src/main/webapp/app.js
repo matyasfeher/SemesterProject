@@ -7,7 +7,7 @@
 
 var ResultsController = angular.module('FlightSearch', [])
 
-        .controller('FlightController', function ($scope, $http, $location) {
+        .controller('FlightController', function ($scope, $http, $location) {           
             $scope.errorMessage;
             $scope.message = "Hey from Agnular";
             $scope.originAirports = ["CPH", "STN", "SXF", "CDG", "BCN"];
@@ -19,8 +19,10 @@ var ResultsController = angular.module('FlightSearch', [])
 
             $scope.originAirport = "CPH";
             $scope.destAirport = "";
-            $scope.dateFrom = "2017-01-01";
-            $scope.dateTo = "2017-01-07";
+            $scope.dateFrom = $("#calendarFrom").data("datepicker").getDate();
+            console.log($scope.dateFrom);
+            $scope.dateTo = $("#calendarTo").data("datepicker").getDate();
+            console.log($scope.dateTo);
             $scope.passengerNo = 1;
 
             $scope.alertMessageTitle = "";
@@ -101,7 +103,7 @@ var ResultsController = angular.module('FlightSearch', [])
                     console.log("Dont have destination airport");
                     $http({
                             method: "GET",
-                            url: "api/searchflights/" + $scope.originAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
+                            url: "api/searchflights/" + $scope.originAirport + "/" + $scope.dateFrom.toISOString() +"/" + $scope.passengerNo
                         }).then(function successCallback2(res) {
                             $scope.showResultsPanel = true;
                             $scope.showLoadingSpinner = false;
@@ -119,7 +121,7 @@ var ResultsController = angular.module('FlightSearch', [])
 //                if ($scope.destAirport != "") {
 //                    $http({
 //                        method: "GET",
-//                        url: "api/searchflights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T00:00:00.000Z/" + $scope.passengerNo
+//                        url: "api/searchflights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom.toISOString() + $scope.passengerNo
 //                    }).then(function successCallback(res) {
 //                        $scope.showResultsPanel = true;
 //                        $scope.showLoadingSpinner = false;
