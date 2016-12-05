@@ -34,11 +34,11 @@ public class MetaSearchFacade {
         airlineList.add("http://airline-plaul.rhcloud.com/api/flightinfo/");
     }
 
-    public static void main(String[] args) {
-        MetaSearchFacade mtf = new MetaSearchFacade();
-        JSONObject searchAllAirlines = mtf.searchAllAirlines("CPH", null, "2017-01-01", 1);
-        //System.out.println("RESPONSE: \n" + searchAllAirlines);
-    }
+//    public static void main(String[] args) {
+//        MetaSearchFacade mtf = new MetaSearchFacade();
+//        JSONObject searchAllAirlines = mtf.searchAllAirlines("CPH", null, "2017-01-01", 1);
+//        //System.out.println("RESPONSE: \n" + searchAllAirlines);
+//    }
 
     public JSONObject searchAllAirlines(String from, String to, String date, int passengers) {
 
