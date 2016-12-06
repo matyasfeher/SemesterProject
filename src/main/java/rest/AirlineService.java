@@ -44,6 +44,7 @@ public class AirlineService {
 
     @GET
     @Path("{from}/{to}/{date}/{tickets}")
+    @Produces(MediaType.APPLICATION_JSON)
     public String getFlight(@PathParam("from") String from,
             @PathParam("to") String to,
             @PathParam("date") String date,
@@ -81,6 +82,7 @@ public class AirlineService {
 
         return json;
     }
+    
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
