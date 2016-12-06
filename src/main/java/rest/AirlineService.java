@@ -41,6 +41,45 @@ public class AirlineService {
         return json;
 
     }
+    
+    @GET
+    @Path("{from}/{date}/{tickets}")
+    public String getFlight(@PathParam("from") String from,
+            @PathParam("date") String date,
+            @PathParam("tickets") String tickets) {
+
+        String json = null;
+        JSONArray flights = new JSONArray();
+
+        AirlineDBFacade facade = new AirlineDBFacade();
+        List<FlightInstance> flightList = facade.getFlightInstancesBetweenAirports(from, null, date);
+        
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+
+        for (FlightInstance fi : flightList) {
+            JSONObject singleFlight = new JSONObject();
+            singleFlight.put("flightID", fi.getFlightId());
+            singleFlight.put("flightNumber", fi.getFlight().getFlightNumber());
+            singleFlight.put("date", df.format(fi.getDate()));
+            singleFlight.put("numberOfSeats", fi.getAvailableSeats());
+            singleFlight.put("totalPrice", fi.getPrice());
+            singleFlight.put("travelTime", fi.getFlight().getFlightTime());
+            singleFlight.put("origin", fi.getFlight().getFrom().getCode());
+            //singleFlight.put("originName", fi.getFlightFromTo().getFrom().getCity());
+            singleFlight.put("destination", fi.getFlight().getTo().getCode());
+            singleFlight.put("destinationName", fi.getFlight().getTo().getCity());
+            flights.add(singleFlight);
+        }
+
+        JSONObject object = new JSONObject();
+        object.put("airline", "SemestAir");
+        object.put("flights", flights);
+
+        json = gson.toJson(object);
+
+        return json;
+    }
 
     @GET
     @Path("{from}/{to}/{date}/{tickets}")
@@ -67,7 +106,7 @@ public class AirlineService {
             singleFlight.put("totalPrice", fi.getPrice());
             singleFlight.put("travelTime", fi.getFlight().getFlightTime());
             singleFlight.put("origin", fi.getFlight().getFrom().getCode());
-            //singleFlight.put("originName", fi.getFlight().getFrom().getCity());
+            //singleFlight.put("originName", fi.getFlightFromTo().getFrom().getCity());
             singleFlight.put("destination", fi.getFlight().getTo().getCode());
             singleFlight.put("destinationName", fi.getFlight().getTo().getCity());
             flights.add(singleFlight);

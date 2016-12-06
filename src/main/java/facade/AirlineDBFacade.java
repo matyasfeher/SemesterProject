@@ -3,6 +3,7 @@ package facade;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import entity.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
@@ -18,7 +19,7 @@ public class AirlineDBFacade {
         return em;
     }
     
-    public Flight getFlight(String from, String to) {
+    private Flight getFlightFromTo(String from, String to) {
         try {
             Flight flight;
             EntityManager em = getEntityManager();
@@ -28,6 +29,21 @@ public class AirlineDBFacade {
             query.setParameter("destination", em.find(Airport.class, to));
             flight = (Flight) query.getSingleResult();
             return flight;
+        } catch (Exception ex) {
+            System.out.println("Exception in getFLight: "+ex.toString());
+            return null;
+        }
+    }
+    
+    private List<Flight> getFlightsFrom(String from, String date) {
+        try {
+            Flight flight;
+            EntityManager em = getEntityManager();
+            
+            Query query = em.createQuery("SELECT f FROM Flight f WHERE f.from = :origin");
+            query.setParameter("origin", em.find(Airport.class, from));
+            List resultList = query.getResultList();
+            return resultList;
         } catch (Exception ex) {
             System.out.println("Exception in getFLight: "+ex.toString());
             return null;
@@ -47,10 +63,25 @@ public class AirlineDBFacade {
         }
     }
     
+    //Returns all flight instances for a single flight between two airports
     public List<FlightInstance> getFlightInstancesBetweenAirports(String from, String to, String date) {
-        Flight flight = getFlight(from, to);
+        Flight flight = getFlightFromTo(from, to);
         List<FlightInstance> flightInstances = getFlightInstancesByFlight(flight);
         return flightInstances;
+    }
+    
+    //Gives back all the flight instances for each flight from a certain airport
+    public List<FlightInstance> getFlightInstancesFromAirport(String from, String date) {
+        List<FlightInstance> flightInstanceList = new ArrayList();
+        
+        List<Flight> flightsList = getFlightsFrom(from, date);
+        for (Flight f : flightsList) {
+            List<FlightInstance> flightInstancesByFlight = getFlightInstancesByFlight(f);
+            for (FlightInstance fi : flightInstancesByFlight) {
+                flightInstanceList.add(fi);
+            }
+        }
+        return flightInstanceList;
     }
     
    
@@ -128,4 +159,6 @@ public class AirlineDBFacade {
         Flight f = em.find(Flight.class, flightNumber);
         em.remove(f);
     }
+
+    
 }

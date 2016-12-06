@@ -7,8 +7,8 @@
 
 var ResultsController = angular.module('FlightSearch', [])
 
-        .controller('FlightController', function ($scope, $http, $location) {           
-            $scope.errorMessage = "HEEy";
+        .controller('FlightController', function ($scope, $http, $location) {
+            $scope.errorMessage = "";
             $scope.message = "Hey from Agnular";
             $scope.originAirports = ["CPH", "STN", "SXF", "CDG", "BCN"];
 
@@ -24,7 +24,7 @@ var ResultsController = angular.module('FlightSearch', [])
             $scope.alertMessageTitle = "";
             $scope.alertMessage = "";
             $scope.dateFrom = "2017-01-01";
-            
+
 
 
             $scope.getArrivalTime = function (date, travelTime) {
@@ -90,45 +90,44 @@ var ResultsController = angular.module('FlightSearch', [])
 //                return;
                 //REMOVE CODE ABOVE
                 $scope.showLoadingSpinner = true;
-                
-                
+
+
                 if ($scope.destAirport != "") {
                     //Have destination airport
                     console.log("Have destination airport");
                     $http({
-                            method: "GET",
-                            url: "api/searchflights/" + $scope.originAirport + "/" + $scope.destAirport  + "/" + $scope.dateFrom+ "T06:00:00.000Z" +"/" + $scope.passengerNo
-                        }).then(function successCallback2(res) {
-                            $scope.showResultsPanel = true;
-                            $scope.showLoadingSpinner = false;
+                        method: "GET",
+                        url: "api/searchflights/" + $scope.originAirport + "/" + $scope.destAirport + "/" + $scope.dateFrom + "T06:00:00.000Z" + "/" + $scope.passengerNo
+                    }).then(function successCallback2(res) {
+                        $scope.showResultsPanel = true;
+                        $scope.showLoadingSpinner = false;
 
-                            $scope.data = res.data;
-                            $scope.errorMessage = "";
-                            console.log(res.data);
+                        $scope.data = res.data;
+                        $scope.errorMessage = "";
+                        console.log(res.data);
 
-                        }, function errorCallback2(res) {
-                            $scope.error = res.status + ": " + res.data.statusText;
-                            $scope.errorMessage = "Invalid request. (" + res.status + ")";
-                        });
-                }
-                else {
+                    }, function errorCallback2(res) {
+                        $scope.error = res.status + ": " + res.data.statusText;
+                        $scope.errorMessage = "Invalid request. (" + res.status + ")";
+                    });
+                } else {
                     //Dont have destination airport
                     console.log("Dont have destination airport");
                     $http({
-                            method: "GET",
-                            url: "api/searchflights/" + $scope.originAirport + "/" + $scope.dateFrom + "T06:00:00.000Z" +"/" + $scope.passengerNo
-                        }).then(function successCallback2(res) {
-                            $scope.showResultsPanel = true;
-                            $scope.showLoadingSpinner = false;
+                        method: "GET",
+                        url: "api/searchflights/" + $scope.originAirport + "/" + $scope.dateFrom + "T06:00:00.000Z" + "/" + $scope.passengerNo
+                    }).then(function successCallback2(res) {
+                        $scope.showResultsPanel = true;
+                        $scope.showLoadingSpinner = false;
 
-                            $scope.data = res.data;
-                            $scope.errorMessage = "";
-                            console.log(res.data);
+                        $scope.data = res.data;
+                        $scope.errorMessage = "";
+                        console.log(res.data);
 
-                        }, function errorCallback2(res) {
-                            $scope.error = res.status + ": " + res.data.statusText;
-                            $scope.errorMessage = "Invalid request. (" + res.status + ")";
-                        });
+                    }, function errorCallback2(res) {
+                        $scope.error = res.status + ": " + res.data.statusText;
+                        $scope.errorMessage = "Invalid request. (" + res.status + ")";
+                    });
                 }
 
             };
@@ -136,34 +135,7 @@ var ResultsController = angular.module('FlightSearch', [])
             $scope.go = function (path, flightID) {
                 $location.path(path + "?" + flightID);
             };
+            
 
-        })
-
-
-
-        .filter('ArrivalTime', function () {
-            return function (date, travelTime) {
-                console.log("INSIDE FILTER");
-                console.log("date: " + date);
-                console.log("tt: " + travelTime);
-                //var params = input.split("%");
-//                var inputTime = params[0];
-//                var minstoadd = params[1];
-//
-//                var time = inputTime.split(":");
-//
-//                var hours = Math.floor(minstoadd / 60);
-//                var mins = minstoadd % 60;
-//
-//                var outputhrs = +time[0] + +hours;
-//                var outputmins = +time[1] + +mins;
-//                if (outputmins > 60) {
-//                    outputmins = outputmins - 60;
-//                    outputhrs++;
-//                }
-//                var output = outputhrs + ":" + outputmins;
-                return"test";
-            };
         });
-
-;
+        
