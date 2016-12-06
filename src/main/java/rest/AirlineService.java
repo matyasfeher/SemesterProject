@@ -35,29 +35,28 @@ public class AirlineService {
         return json;
 
     }
-    
+
     @GET
     @Path("{from}/{date}/{tickets}")
     public String getFlight(@PathParam("from") String from,
             @PathParam("date") String date,
-            @PathParam("tickets") String tickets) {
+            @PathParam("tickets") int tickets) {
 
         String json = null;
         JSONArray flights = new JSONArray();
 
         AirlineDBFacade facade = new AirlineDBFacade();
         List<FlightInstance> flightList = facade.getFlightInstancesFromAirport(from, date);
-        
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
         for (FlightInstance fi : flightList) {
             JSONObject singleFlight = new JSONObject();
             singleFlight.put("flightID", fi.getFlightId());
             singleFlight.put("flightNumber", fi.getFlight().getFlightNumber());
             singleFlight.put("date", df.format(fi.getDate()));
-            singleFlight.put("numberOfSeats", fi.getAvailableSeats());
-            singleFlight.put("totalPrice", fi.getPrice());
+            singleFlight.put("numberOfSeats", tickets);
+            singleFlight.put("totalPrice", Integer.parseInt(fi.getPrice()) * tickets);
             singleFlight.put("travelTime", fi.getFlight().getFlightTime());
             singleFlight.put("origin", fi.getFlight().getFrom().getCode());
             //singleFlight.put("originName", fi.getFlightFromTo().getFrom().getCity());
@@ -80,25 +79,24 @@ public class AirlineService {
     public String getFlight(@PathParam("from") String from,
             @PathParam("to") String to,
             @PathParam("date") String date,
-            @PathParam("tickets") String tickets) {
+            @PathParam("tickets") int tickets) {
 
         String json;
         JSONArray flights = new JSONArray();
 
         AirlineDBFacade facade = new AirlineDBFacade();
-//        List<FlightInstance> flightList = facade.getFlightInstancesBetweenAirports(from, to, date);
-        List<FlightInstance> flightList = facade.getFlightInstancesFromAirport(from, date);
-        
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        List<FlightInstance> flightList = facade.getFlightInstancesBetweenAirports(from, to, date);
+//        List<FlightInstance> flightList = facade.getFlightInstancesFromAirport(from, date);
 
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
         for (FlightInstance fi : flightList) {
             JSONObject singleFlight = new JSONObject();
             singleFlight.put("flightID", fi.getFlightId());
             singleFlight.put("flightNumber", fi.getFlight().getFlightNumber());
             singleFlight.put("date", df.format(fi.getDate()));
-            singleFlight.put("numberOfSeats", fi.getAvailableSeats());
-            singleFlight.put("totalPrice", fi.getPrice());
+            singleFlight.put("numberOfSeats", tickets);
+            singleFlight.put("totalPrice", Integer.parseInt(fi.getPrice()) * tickets);
             singleFlight.put("travelTime", fi.getFlight().getFlightTime());
             singleFlight.put("origin", fi.getFlight().getFrom().getCode());
             singleFlight.put("destination", fi.getFlight().getTo().getCode());

@@ -26,7 +26,6 @@ var ResultsController = angular.module('FlightSearch', [])
             $scope.dateFrom = "2016-12-01";
 
 
-
             $scope.getArrivalTime = function (date, travelTime) {
 
                 var s = date.split("T");
@@ -84,12 +83,12 @@ var ResultsController = angular.module('FlightSearch', [])
 
             $scope.getFlights = function () {
 
-                //Hardcoded JSON response - REMOVE
-//                $scope.data = JSON.parse('{"airline":"AngularJS Airline","flights":[{"date":"2017-01-01T06:00:00.000Z","numberOfSeats":1,"traveltime":60,"totalPrice":75.0,"origin":"CPH","destination":"SXF","flightID":"2214-1483268400000","flightNumber":"COL2214"},{"date":"2017-01-01T19:00:00.000Z","numberOfSeats":1,"traveltime":90,"totalPrice":50.0,"origin":"CPH","destination":"STN","flightID":"3256-1483315200000","flightNumber":"COL3256"},{"date":"2017-01-01T10:00:00.000Z","numberOfSeats":1,"traveltime":90,"totalPrice":65.0,"origin":"CPH","destination":"STN","flightID":"3256-1483282800000","flightNumber":"COL3256"},{"date":"2017-01-01T15:00:00.000Z","numberOfSeats":1,"traveltime":60,"totalPrice":70.0,"origin":"CPH","destination":"SXF","flightID":"2216-1483300800000","flightNumber":"COL2216"}]}');
-//                $scope.showResultsPanel = true;
-//                return;
-                //REMOVE CODE ABOVE
                 $scope.showLoadingSpinner = true;
+                $scope.dateFrom = $("#datetimepicker1").find("input").val();
+                $scope.dateTo = $("#datetimepicker2").find("input").val();
+                
+                $scope.originAirport = $("#originAirport").val();
+                $scope.destAirport = $("#destinationAirport").val();
 
 
                 if ($scope.destAirport != "") {
@@ -132,10 +131,12 @@ var ResultsController = angular.module('FlightSearch', [])
 
             };
 
-            $scope.go = function (path, flightID) {
-                $location.path(path + "?" + flightID);
+            $scope.exchangeCities = function() {
+                var dateFrom = $("#originAirport").val();
+                $("#originAirport").val($("#destinationAirport").val());
+                $("#destinationAirport").val(dateFrom);
             };
-            
+
 
         });
         
