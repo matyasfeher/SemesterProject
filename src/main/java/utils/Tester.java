@@ -25,12 +25,18 @@ import request.Flights;
 public class Tester {
 
     public static void main(String[] args) {
-        //Persistence.generateSchema("pu", null);
-//        List<Flight> list;
-////        AirlineCoreFacade acf = new AirlineCoreFacade();
-//        list = acf.getAllFlight();
-//        Airline a = new Airline("SemestAir", list);
-//        acf.addAirline(a);
+//<<<<<<< HEAD
+//        //Persistence.generateSchema("pu", null);
+////        List<Flight> list;
+//////        AirlineCoreFacade acf = new AirlineCoreFacade();
+//=======
+////        //Persistence.generateSchema("pu", null);
+////        List<Flight> list;
+////     //   AirlineCoreFacade acf = new AirlineCoreFacade();
+//>>>>>>> origin/master
+////        list = acf.getAllFlight();
+////        Airline a = new Airline("SemestAir", list);
+////        acf.addAirline(a);
 
     }
 
