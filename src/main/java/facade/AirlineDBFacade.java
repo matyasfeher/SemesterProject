@@ -69,21 +69,6 @@ public class AirlineDBFacade {
         }
     }
 
-    public void addAirline(Airline a) {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(a);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
     public Airline getAirlineByName(String airlineName) {
         Airline a;
         EntityManager em = getEntityManager();
@@ -91,22 +76,6 @@ public class AirlineDBFacade {
         return a;
     }
 
-    public void addFlight(Flight f) {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(f);
-            System.out.println("Persisted: " + f.toString());
-            em.getTransaction().commit();
-            System.out.println("Commited: " + f.toString());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
 
     public Flight getFlightByFlightNumber(String flightNumber) {
         Flight f;
@@ -123,9 +92,4 @@ public class AirlineDBFacade {
         return flightList;
     }
 
-    public void deleteFlightByFlightNumber(String flightNumber) {
-        EntityManager em = getEntityManager();
-        Flight f = em.find(Flight.class, flightNumber);
-        em.remove(f);
-    }
 }

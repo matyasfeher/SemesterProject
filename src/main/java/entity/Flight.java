@@ -34,7 +34,7 @@ public class Flight implements Serializable {
         this.from = from;
         this.to = to;
     }
-
+    
     public Flight() {
     }
 

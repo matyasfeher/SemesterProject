@@ -5,7 +5,9 @@
  */
 package UnitTest;
 
+import entity.Flight;
 import facade.AirlineDBFacade;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,9 +24,33 @@ public class AirlineDBFacadeTest {
     
     @Test
     public void testGetFlight(){
+        String from = "BUD";
+        String to = "CPH";
+        int flightTime = 146;
+        String seats = "100";
+        String flightNumber = "123456";
+        AirlineDBFacade ADBFacade = new AirlineDBFacade();
+        Flight flight = ADBFacade.getFlightByFlightNumber("123456");
+        flight.getFrom().getCode();
+        Flight result = ADBFacade.getFlight(from, to);
+        
+        assertEquals(to, flight.getTo().getCode());
+        assertEquals(from, flight.getFrom().getCode());
+        assertEquals(flightTime, flight.getFlightTime());
+        assertEquals(seats, flight.getSeats());
+        assertEquals(flightNumber, flight.getFlightNumber());
         
     }
     
+    @Test
+    public void testGetAllFlights(){
+        AirlineDBFacade ADBFacade = new AirlineDBFacade();
+        List<Flight> flights = ADBFacade.getAllFlight();
+        
+        for(Flight flight : flights){
+            assertNotNull(flight);
+        }
+    }
     
     @BeforeClass
     public static void setUpClass() {

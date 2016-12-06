@@ -81,21 +81,4 @@ public class AirlineService {
 
         return json;
     }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("{flightNumber}/{seats}/{flightTime}/{from}/{to}")
-    public String addFlight(@PathParam("flightNumber") String flightNumber,
-            @PathParam("seats") String seats,
-            @PathParam("flightTime") int flightTime,
-            @PathParam("from") String from,
-            @PathParam("to") String to) {
-        Airport tempFrom = af.getAirportByCode(from);
-        Airport tempTo = af.getAirportByCode(to);
-        Flight f = new Flight(flightNumber, seats, flightTime, tempFrom, tempTo);
-        acf.addFlight(f);
-        String json = gson.toJson(f);
-        return "{ \"status\": \"Done\" } " + json;
-    }
 }
