@@ -23,7 +23,7 @@ var ResultsController = angular.module('FlightSearch', [])
 
             $scope.alertMessageTitle = "";
             $scope.alertMessage = "";
-            $scope.dateFrom = "2017-01-01";
+            $scope.dateFrom = "2016-12-01";
 
 
 

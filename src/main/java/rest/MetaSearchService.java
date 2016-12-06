@@ -49,7 +49,9 @@ public class MetaSearchService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{date}/{tickets}")
-    public String getJson(@PathParam("from") String fromAirport, @PathParam("date") String date, @PathParam("tickets") int tickets) {
+    public String getJson(@PathParam("from") String fromAirport, 
+            @PathParam("date") String date, 
+            @PathParam("tickets") int tickets) {
         
         MetaSearchFacade msf = new MetaSearchFacade();       
         JSONObject jsonFlights = msf.searchAllAirlines(fromAirport, null, date, tickets);
@@ -65,7 +67,10 @@ public class MetaSearchService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{to}/{date}/{tickets}")
-    public String getJsonBetweenTwoAirports(@PathParam("from") String fromAirport, @PathParam("to") String toAirport, @PathParam("date") String date, @PathParam("tickets") int tickets){
+    public String getJsonBetweenTwoAirports(@PathParam("from") String fromAirport, 
+            @PathParam("to") String toAirport, 
+            @PathParam("date") String date, 
+            @PathParam("tickets") int tickets){
         MetaSearchFacade msf = new MetaSearchFacade();   
         JSONObject jsonFlights = msf.searchAllAirlines(fromAirport, toAirport, date, tickets);
 
