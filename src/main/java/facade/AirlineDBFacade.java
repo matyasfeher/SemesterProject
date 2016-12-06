@@ -18,7 +18,6 @@ public class AirlineDBFacade {
         return em;
     }
     
-    
     public Flight getFlight(String from, String to) {
         try {
             Flight flight;
@@ -115,13 +114,6 @@ public class AirlineDBFacade {
         f = em.find(Flight.class, flightNumber);
         return f;
     }
-    
-    public FlightInstance getFlightInstanceByFlightID (String flightID) {
-        FlightInstance fi;
-        EntityManager em = getEntityManager();
-        fi = em.find(FlightInstance.class, flightID);
-        return fi;
-    } 
 
     public List<Flight> getAllFlight() {
         List<Flight> flightList;

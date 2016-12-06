@@ -34,11 +34,11 @@ public class MetaSearchFacade {
         airlineList.add("http://airline-plaul.rhcloud.com/api/flightinfo/");
     }
 
-    public static void main(String[] args) {
-        MetaSearchFacade mtf = new MetaSearchFacade();
-        JSONObject searchAllAirlines = mtf.searchAllAirlines("CPH", null, "2017-01-01", 1);
-        System.out.println("RESPONSE: \n" + searchAllAirlines);
-    }
+//    public static void main(String[] args) {
+//        MetaSearchFacade mtf = new MetaSearchFacade();
+//        JSONObject searchAllAirlines = mtf.searchAllAirlines("CPH", null, "2017-01-01", 1);
+//        //System.out.println("RESPONSE: \n" + searchAllAirlines);
+//    }
 
     public JSONObject searchAllAirlines(String from, String to, String date, int passengers) {
 
@@ -47,10 +47,7 @@ public class MetaSearchFacade {
 
         for (String airlineUrl : airlineList) {
             JSONObject obj = requestFlightsFromAirline(airlineUrl, from, to, date, passengers);
-            if (obj != null) {
-                responseArray.add(obj);
-            }
-            
+            responseArray.add(obj);
         }
 
         responseObj.put("results", responseArray);
@@ -60,7 +57,7 @@ public class MetaSearchFacade {
     private JSONObject requestFlightsFromAirline(String url, String from, String to, String date, int passengers) {
         
         JSONParser parser = new JSONParser();
-        
+
         if (to != null) {
             url = url + from + "/" + to + "/" + date + "T00:00:00.000Z" + "/" + passengers;
         } else {

@@ -120,20 +120,20 @@
                                     
                                     <div class="center" id="fromTo">
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-left"></span></div>
-                                        <div class="date"><span class="label label-success">{{data.results[0].flights[0].date | date:'yyyy-MM-dd'}}</span></div>
+                                        <div class="date"><span class="label label-success">{{data.flights[0].date| date:'yyyy-MM-dd'}}</span></div>
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
                                     </div>
+                                    haho {{data.results[1]}}
                                     <div class="center" id="fromTo" ng-show="">
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-left"></span></div>
                                         <div class="date"><span class="label label-info">{{data.results[1]}}haho</span></div>
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
                                     </div>
-                                    
-                                    
-                                    <div class="jumbotron" ng-repeat="airlineResp in data.results" id="details" style="display:flex;justify-content:center;align-items:center;" >  
+
+                                    <div class="jumbotron" ng-repeat="flight in data.flights" id="details" style="display:flex;justify-content:center;align-items:center;" >  
                                         <table>
-                                            <tr ng-repeat="flight in airlineResp.flights">
-                                                <td>{{airlineResp.airline}}</td>
+                                            <tr>
+                                                <td>{{data.airline}}</td>
                                                 <td><h4><span class="label label-primary">{{flight.origin}}</span></h4></td>
                                                 <td><span data-toggle="tooltip" title="Departure Time">{{flight.date| date:'HH:mm'}}</span></td>
                                                 <td>
@@ -157,6 +157,8 @@
                 </div>
 
                 <div class="col-sm-12 booking-panel" ng-show="showBookingPanel"> 
+
+
                     <div class="container">
                         <div class="panel panel-default translucent">
                             <div class="panel-body">
