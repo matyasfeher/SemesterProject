@@ -28,7 +28,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import org.json.simple.JSONObject;
 import request.Flights;
-import utils.Tester;
+import utils.DBTester;
+
 
 /**
  * REST Web Service
@@ -82,7 +83,7 @@ public class MetaSearchService {
         try {
             Date date = sdfISO.parse(uncertainDate);
         } catch (ParseException ex) {
-            Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBTester.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
