@@ -28,7 +28,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import org.json.simple.JSONObject;
 import request.Flights;
-import utils.Tester;
+import utils.DBTester;
+
 
 /**
  * REST Web Service
@@ -49,7 +50,7 @@ public class MetaSearchService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{date}/{tickets}")
     public String getJson(@PathParam("from") String fromAirport, @PathParam("date") String date, @PathParam("tickets") int tickets) {
-        Flights fsearch = new Flights();
+        
         MetaSearchFacade msf = new MetaSearchFacade();       
         JSONObject jsonFlights = msf.searchAllAirlines(fromAirport, null, date, tickets);
 
@@ -65,12 +66,14 @@ public class MetaSearchService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{from}/{to}/{date}/{tickets}")
     public String getJsonBetweenTwoAirports(@PathParam("from") String fromAirport, @PathParam("to") String toAirport, @PathParam("date") String date, @PathParam("tickets") int tickets){
-        Flights flightsearch = new Flights();
-        JSONObject jsonToAndFromFlights = flightsearch.getFlightBetweenTwoAirports(fromAirport, toAirport, date, tickets);
-    
+        
+//        JSONObject jsonToAndFromFlights = flightsearch.getFlightBetweenTwoAirports(fromAirport, toAirport, date, tickets);
+        MetaSearchFacade msf = new MetaSearchFacade();   
+        JSONObject jsonFlights = msf.searchAllAirlines(fromAirport, toAirport, date, tickets);
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonParser jp = new JsonParser();
-        JsonElement je = jp.parse(jsonToAndFromFlights.toJSONString());
+        JsonElement je = jp.parse(jsonFlights.toJSONString());
         String prettyJsonString = gson.toJson(je);
 
         return prettyJsonString;      
@@ -82,7 +85,7 @@ public class MetaSearchService {
         try {
             Date date = sdfISO.parse(uncertainDate);
         } catch (ParseException ex) {
-            Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBTester.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;

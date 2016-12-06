@@ -47,7 +47,10 @@ public class MetaSearchFacade {
 
         for (String airlineUrl : airlineList) {
             JSONObject obj = requestFlightsFromAirline(airlineUrl, from, to, date, passengers);
-            responseArray.add(obj);
+            if (obj != null) {
+                responseArray.add(obj);
+            }
+            
         }
 
         responseObj.put("results", responseArray);

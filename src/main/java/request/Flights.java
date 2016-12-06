@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 import static javax.ws.rs.core.HttpHeaders.USER_AGENT;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
-import utils.Tester;
+import utils.DBTester;
 
 /**
  *
@@ -149,7 +149,7 @@ public class Flights {
         try {
             Date date = sdfISO.parse(uncertainDate);
         } catch (ParseException ex) {
-            Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBTester.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
