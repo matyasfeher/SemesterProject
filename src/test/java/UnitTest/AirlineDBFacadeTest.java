@@ -6,6 +6,7 @@
 package UnitTest;
 
 import entity.Flight;
+import entity.FlightInstance;
 import facade.AirlineDBFacade;
 import java.util.List;
 import org.junit.After;
@@ -52,6 +53,21 @@ public class AirlineDBFacadeTest {
         }
     }
     
+    @Test
+    public void testGetFlightInstancesBetweenAirports(){
+        String from = "CPH";
+        String to = "BUD";
+        String date = "01-01-2017-T00:00:00.000Z";
+        AirlineDBFacade ADBFacade = new AirlineDBFacade();
+        List<FlightInstance> flightInstances = ADBFacade.getFlightInstancesBetweenAirports(from, to, date);
+        
+        
+        for(FlightInstance flightInstance : flightInstances){
+            assertNotNull(flightInstance);
+        }
+    }
+            
+            
     @BeforeClass
     public static void setUpClass() {
     }
