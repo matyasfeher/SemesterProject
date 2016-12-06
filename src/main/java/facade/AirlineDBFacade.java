@@ -3,6 +3,8 @@ package facade;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import entity.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
@@ -17,23 +19,23 @@ public class AirlineDBFacade {
         EntityManager em = Persistence.createEntityManagerFactory("pu").createEntityManager();
         return em;
     }
-    
+
     public Flight getFlight(String from, String to) {
         try {
             Flight flight;
             EntityManager em = getEntityManager();
-            
+
             Query query = em.createQuery("SELECT f FROM Flight f WHERE f.from = :origin AND f.to = :destination");
             query.setParameter("origin", em.find(Airport.class, from));
             query.setParameter("destination", em.find(Airport.class, to));
             flight = (Flight) query.getSingleResult();
             return flight;
         } catch (Exception ex) {
-            System.out.println("Exception in getFLight: "+ex.toString());
+            System.out.println("Exception in getFLight: " + ex.toString());
             return null;
         }
     }
-    
+
     public List<Flight> getAllFlightsFrom(String from) {
         try {
             EntityManager em = getEntityManager();
@@ -42,29 +44,36 @@ public class AirlineDBFacade {
             List<Flight> resultList = query.getResultList();
             return resultList;
         } catch (Exception ex) {
-            System.out.println("Exception in getAllFightsFrom: "+ex.toString());
+            System.out.println("Exception in getAllFightsFrom: " + ex.toString());
             return null;
         }
     }
-    
+
     public List<FlightInstance> getFlightInstancesBetweenAirports(String from, String to, String date) {
         Flight flight = getFlight(from, to);
-        List<FlightInstance> flightInstances = getFlightInstancesByFlight(flight);
+        List<FlightInstance> flightInstances = getFlightInstancesByFlight(flight, date);
         return flightInstances;
     }
-    
-   
-    
-    public List<FlightInstance> getFlightInstancesByFlight(Flight f) {
-    List<FlightInstance> list = null;
+
+    public List<FlightInstance> getFlightInstancesByFlight(Flight f, String date) {
+        List<FlightInstance> list = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        Date d = null;
+        try {
+            d = sdf.parse(date);
+
+        } catch (ParseException ex) {
+            System.out.println(ex.getMessage());
+        }
         try {
             EntityManager em = getEntityManager();
-            Query query = em.createQuery("SELECT f FROM FlightInstance f WHERE f.flight = :flight");
+            Query query = em.createQuery("SELECT f FROM FlightInstance f WHERE f.flight = :flight AND f.date = :date");
             query.setParameter("flight", f);
+            query.setParameter("date", d);
             list = query.getResultList();
             return list;
         } catch (Exception e) {
-            System.out.println("Exception: "+ e.getMessage());
+            System.out.println("Exception: " + e.getMessage());
             return list;
         }
     }
@@ -119,7 +128,7 @@ public class AirlineDBFacade {
         List<Flight> flightList;
         EntityManager em = getEntityManager();
         Query query = em.createQuery("SELECT f FROM Flight f");
-        flightList = (List<Flight>)query.getResultList();
+        flightList = (List<Flight>) query.getResultList();
         return flightList;
     }
 

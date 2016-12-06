@@ -9,14 +9,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import entity.*;
 import facade.AirlineDBFacade;
-import facade.AirportFacade;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -29,7 +24,6 @@ public class AirlineService {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private static final AirlineDBFacade acf = new AirlineDBFacade();
-    private static final AirportFacade af = new AirportFacade();
 
     @GET
     @Path("{flightNumber}")
@@ -49,7 +43,7 @@ public class AirlineService {
             @PathParam("date") String date,
             @PathParam("tickets") String tickets) {
 
-        String json = null;
+        String json;
         JSONArray flights = new JSONArray();
 
         AirlineDBFacade facade = new AirlineDBFacade();
@@ -67,7 +61,6 @@ public class AirlineService {
             singleFlight.put("totalPrice", fi.getPrice());
             singleFlight.put("travelTime", fi.getFlight().getFlightTime());
             singleFlight.put("origin", fi.getFlight().getFrom().getCode());
-            //singleFlight.put("originName", fi.getFlight().getFrom().getCity());
             singleFlight.put("destination", fi.getFlight().getTo().getCode());
             singleFlight.put("destinationName", fi.getFlight().getTo().getCity());
             flights.add(singleFlight);
@@ -80,22 +73,5 @@ public class AirlineService {
         json = gson.toJson(object);
 
         return json;
-    }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("{flightNumber}/{seats}/{flightTime}/{from}/{to}")
-    public String addFlight(@PathParam("flightNumber") String flightNumber,
-            @PathParam("seats") String seats,
-            @PathParam("flightTime") int flightTime,
-            @PathParam("from") String from,
-            @PathParam("to") String to) {
-        Airport tempFrom = af.getAirportByCode(from);
-        Airport tempTo = af.getAirportByCode(to);
-        Flight f = new Flight(flightNumber, seats, flightTime, tempFrom, tempTo);
-        acf.addFlight(f);
-        String json = gson.toJson(f);
-        return "{ \"status\": \"Done\" } " + json;
     }
 }
