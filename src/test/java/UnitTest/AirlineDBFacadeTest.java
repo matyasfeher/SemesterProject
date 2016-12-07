@@ -57,7 +57,7 @@ public class AirlineDBFacadeTest {
     public void testGetFlightInstancesBetweenAirports(){
         String from = "CPH";
         String to = "BUD";
-        String date = "01-01-2017-T00:00:00.000Z";
+        String date = "2017-01-01T08:00:00.000Z";
         AirlineDBFacade ADBFacade = new AirlineDBFacade();
         List<FlightInstance> flightInstances = ADBFacade.getFlightInstancesBetweenAirports(from, to, date);
         
