@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(rest.AirlineService.class);
         resources.add(rest.AirportInfoResource.class);
+        resources.add(rest.BookingService.class);
         resources.add(rest.MetaSearchService.class);
     }
     

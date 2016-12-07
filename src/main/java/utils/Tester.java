@@ -7,6 +7,7 @@ package utils;
 
 import entity.*;
 import facade.*;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,9 +34,7 @@ public class Tester {
 //        }
 
         AirlineDBFacade facade = new AirlineDBFacade();
-        List<FlightInstance> flightInstancesFromAirport = facade.getFlightInstancesFromAirport("CPH", "2016-11-18");
-        System.out.println("Size: " + flightInstancesFromAirport.size());
-        System.out.println("");
+
     }
 
     //Validates that the date confirms to
