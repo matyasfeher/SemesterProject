@@ -134,8 +134,8 @@ div.date{font-size: x-large;}
 div.changeDay{margin: 8px 8px 0px 8px;}
 #resultsPanel{text-align: center; padding-top: 20px; padding-bottom: 20px}
 #fromTo{display: inline-block;}
-#details{padding: 10px 20px 10px 20px; margin-top: 5px; margin-bottom: 15px;
-display:flex;;
+#details{padding: 10px 20px 10px 20px; margin-top: 3px; margin-bottom: 15px;
+ align-items: center; 
 }
 #arrowDateHeading{margin-left: 8px; margin-right: 8px;}
 #arrowDateHeading div:first-child{margin-bottom: -6px; margin-top: -1px; font-size: small; text-align: left; margin-left: 5px;}
@@ -152,6 +152,9 @@ display:flex;;
 #resultsPanel .column-sm{width: 40px}
 
 
+#results-table {
+    width: 700px;
+}
 
 
 /*Booking page*/

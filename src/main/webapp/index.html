@@ -31,24 +31,25 @@
                         <div class="container vertical-align">
                             <div class="jumbotron panel" id="searchPanel">
 
-                                <form class="form-inline" data-toggle="validator">
+                                <form class="form-inline" id="search-form" data-toggle="validator">
 
                                     <div class="form-group">
                                         <label for="inputName" class="control-label">From</label><br>
-                                        <input type="text" class="form-control" ng-model="originAirport" placeholder="Copenhagen Airport" required>
-                                        <a href="javascript:void(0)" id="exchangeCities" class="imageButton">
+                                        <input type="text" id="originAirport" class="form-control" ng-model="originAirport" placeholder="Copenhagen Airport" required>
+                                        <a href="" id="exchangeCities" class="imageButton" ng-click="exchangeCities()">
                                             <span class="glyphicon glyphicon-transfer"></span>
                                         </a>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputName" class="control-label">To</label><br>
-                                        <input type="text" class="form-control" ng-model="destAirport" placeholder="London City" >
+                                        <label for="inputName"  class="control-label">To</label><br>
+                                        <input type="text" id="destinationAirport" class="form-control" ng-model="destAirport" placeholder="London City" >
                                     </div>
                                     &emsp;
+
                                     <div class="form-group">
                                         <label class="control-label">Date</label> <br>
                                         <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' class="form-control" ng-model="dateFrom"/>
+                                            <input type='text' class="form-control" id="datepicker1input" ng-model="dateFrom"/>
                                             <span class="input-group-addon">
                                                 <span id="calendarFrom" class="glyphicon glyphicon-calendar"></span>
                                             </span>
@@ -103,13 +104,12 @@
 
                 <div class="loader center" ng-show="showLoadingSpinner"></div>
 
-
                 <div class="col-sm-12"  ng-show="showResultsPanel">
                     <div class="container search-results">     
                         <div class="span12">      
                             <div class="jumbotron panel" id="results-panel" >
 
-                                
+
 
                                 <div class="center">
 
@@ -117,10 +117,10 @@
                                         <button type="button" ng-click="dismissAlertBox()" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <strong>{{alertMessageTitle}}</strong> {{alertMessage}}
                                     </div>
-                                    
+
                                     <div class="center" id="fromTo">
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-left"></span></div>
-                                        <div class="date"><span class="label label-success">{{data.results[0].flights[0].date | date:'yyyy-MM-dd'}}</span></div>
+                                        <div class="date"><span class="label label-success">{{data.results[0].flights[0].date| date:'yyyy-MM-dd'}}</span></div>
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
                                     </div>
                                     <div class="center" id="fromTo" ng-show="">
@@ -128,10 +128,10 @@
                                         <div class="date"><span class="label label-info">{{data.results[1]}}haho</span></div>
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
                                     </div>
-                                    
-                                    
-                                    <div class="jumbotron" ng-repeat="airlineResp in data.results" id="details" style="display:flex;justify-content:center;align-items:center;" >  
-                                        <table>
+
+
+                                    <div class="jumbotron" ng-repeat="airlineResp in data.results" id="details"  >  
+                                        <table id="results-table">
                                             <tr ng-repeat="flight in airlineResp.flights">
                                                 <td>{{airlineResp.airline}}</td>
                                                 <td><h4><span class="label label-primary">{{flight.origin}}</span></h4></td>
@@ -144,7 +144,7 @@
                                                 </td>
                                                 <td><span data-toggle="tooltip" title="Arrival Time">{{getArrivalTime(flight.date, flight.traveltime)}}</span></td>
                                                 <td><h4><span class="label label-primary">{{flight.destination}}</span></h4></td>
-                                                <td><span data-toggle="tooltip" title="Price">{{flight.totalPrice| currency}} ({{flight.numberOfSeats}} seat)</span></td>
+                                                <td><span data-toggle="tooltip" title="Price"><b>{{flight.totalPrice| currency}}</b> {{flight.numberOfSeats}} seat</span></td>
                                                 <td><button class="btn btn-success" ng-click="bookFlight(flight.flightID)">Book</button></td>
                                             </tr>
                                         </table>

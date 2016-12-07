@@ -48,10 +48,10 @@ public class DBTester {
 //        }        
 //        System.out.println("-------ALL FLIGHT FROM CPH-------");
 //
-//        Flight flight = facade.getFlight("CPH", "BUD");
+//        Flight flight = facade.getFlightFromTo("CPH", "BUD");
 //        System.out.println("flight = " + flight.getFlightNumber() + " seats: " + flight.getSeats());
-        List<FlightInstance> flightInstancesBetweenAirports = facade.getFlightInstancesBetweenAirports("CPH", "BUD", "");
-        for (FlightInstance fi : flightInstancesBetweenAirports) {
+        List<FlightInstance> list = facade.getFlightInstancesFromAirport("CPH", "2016-12-06T08:00:00.000Z");
+        for (FlightInstance fi : list) {
             System.out.println("------------------------------------------");
             System.out.println("From: " + fi.getFlight().getFrom().getCity() + " code: "+fi.getFlight().getFrom().getCode());
             System.out.println("To: " + fi.getFlight().getTo().getCity() + " code: "+fi.getFlight().getTo().getCode());

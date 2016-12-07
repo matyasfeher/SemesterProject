@@ -25,19 +25,17 @@ import request.Flights;
 public class Tester {
 
     public static void main(String[] args) {
-//<<<<<<< HEAD
-//        //Persistence.generateSchema("pu", null);
-////        List<Flight> list;
-//////        AirlineCoreFacade acf = new AirlineCoreFacade();
-//=======
-////        //Persistence.generateSchema("pu", null);
-////        List<Flight> list;
-////     //   AirlineCoreFacade acf = new AirlineCoreFacade();
-//>>>>>>> origin/master
-////        list = acf.getAllFlight();
-////        Airline a = new Airline("SemestAir", list);
-////        acf.addAirline(a);
+//        DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"); 
+//        try {
+//            Date dateObj = sdfISO.parse("2017-01-01T08:00:00.000Z");
+//        } catch (ParseException ex) {
+//            Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
+        AirlineDBFacade facade = new AirlineDBFacade();
+        List<FlightInstance> flightInstancesFromAirport = facade.getFlightInstancesFromAirport("CPH", "2016-11-18");
+        System.out.println("Size: " + flightInstancesFromAirport.size());
+        System.out.println("");
     }
 
     //Validates that the date confirms to

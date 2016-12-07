@@ -23,35 +23,38 @@ import static org.junit.Assert.*;
 public class AirlineDBFacadeTest {
     AirlineDBFacade AirlineDBFacade = new AirlineDBFacade();
     
-    @Test
-    public void testGetFlight(){
-        String from = "BUD";
-        String to = "CPH";
-        int flightTime = 146;
-        String seats = "100";
-        String flightNumber = "123456";
-        AirlineDBFacade ADBFacade = new AirlineDBFacade();
-        Flight flight = ADBFacade.getFlightByFlightNumber("123456");
-        flight.getFrom().getCode();
-        Flight result = ADBFacade.getFlight(from, to);
-        
-        assertEquals(to, flight.getTo().getCode());
-        assertEquals(from, flight.getFrom().getCode());
-        assertEquals(flightTime, flight.getFlightTime());
-        assertEquals(seats, flight.getSeats());
-        assertEquals(flightNumber, flight.getFlightNumber());
-        
-    }
+//    @Test
+//    public void testGetFlightFromTo(){
+//        String from = "BUD";
+//        String to = "CPH";
+//        int flightTime = 146;
+//        String seats = "100";
+//        String flightNumber = "123456";
+//        AirlineDBFacade ADBFacade = new AirlineDBFacade();
+//        Flight flight = ADBFacade.getFlightByFlightNumber("123456");
+//        flight.getFrom().getCode();
+//        Flight result = ADBFacade.getFlightFromTo(from, to);
+//        
+//        assertEquals(to, flight.getTo().getCode());
+//        assertEquals(from, flight.getFrom().getCode());
+//        assertEquals(flightTime, flight.getFlightTime());
+//        assertEquals(seats, flight.getSeats());
+//        assertEquals(flightNumber, flight.getFlightNumber());
+//        
+//    }
+//    
+//    @Test
+//    public void testGetAllFlightsFrom(){
+//        String from = "CPH";
+//        AirlineDBFacade ADBFacade = new AirlineDBFacade();
+//        List<Flight> flights = ADBFacade.getAllFlightsFrom(from);
+//        
+//        for(Flight flight : flights){
+//            assertNotNull(flight);
+//        }
+//    }
     
-    @Test
-    public void testGetAllFlights(){
-        AirlineDBFacade ADBFacade = new AirlineDBFacade();
-        List<Flight> flights = ADBFacade.getAllFlight();
-        
-        for(Flight flight : flights){
-            assertNotNull(flight);
-        }
-    }
+    
     
     @Test
     public void testGetFlightInstancesBetweenAirports(){

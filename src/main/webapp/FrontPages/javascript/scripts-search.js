@@ -1,7 +1,7 @@
 $(function () {
 
-    $('#datetimepicker1').datetimepicker({format: 'MM/DD/YYYY'});
-    $('#datetimepicker2').datetimepicker({format: 'MM/DD/YYYY'});
+    $('#datetimepicker1').datetimepicker({format: 'YYYY-MM-DD'});
+    $('#datetimepicker2').datetimepicker({format: 'YYYY-MM-DD'});
 
     $('#radioBtn a').on('click', function () {
         var sel = $(this).data('title');
