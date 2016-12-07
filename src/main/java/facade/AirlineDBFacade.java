@@ -19,6 +19,23 @@ import javax.persistence.Query;
  */
 public class AirlineDBFacade {
 
+    public FlightInstance getFlightInstanceByFlightId(String flightId){
+     try {
+            FlightInstance fi;
+            EntityManager em = getEntityManager();
+
+            Query query = em.createQuery("SELECT f FROM FlightInstance f WHERE f.flightId = :flightId");
+            query.setParameter("flightId", flightId);
+           
+            fi = (FlightInstance) query.getSingleResult();
+            return fi;
+        } catch (Exception ex) {
+            System.out.println("Exception in getFLight: " + ex.toString());
+            return null;
+        }
+    }
+    
+    
     //Returns all flight instances for a single flight between two airports
     public List<FlightInstance> getFlightInstancesBetweenAirports(String from, String to, String date) {
         Flight flight = getFlightFromTo(from, to);
