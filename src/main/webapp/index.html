@@ -23,7 +23,7 @@
             <img src="#" delayed-src="FrontPages/images/b2.jpg" class="bgM"/>
         </div>
         <br><br>
-        {{errorMessage}}
+        {{airportName}}
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -132,7 +132,7 @@
 
                                     <div class="jumbotron" ng-repeat="airlineResp in data.results" id="details"  >  
                                         <table id="results-table">
-                                            <tr ng-repeat="flight in airlineResp.flights">
+                                            <tr ng-repeat="flight in airlineResp.flights" >
                                                 <td>{{airlineResp.airline}}</td>
                                                 <td><h4><span class="label label-primary">{{flight.origin}}</span></h4></td>
                                                 <td><span data-toggle="tooltip" title="Departure Time">{{flight.date| date:'HH:mm'}}</span></td>

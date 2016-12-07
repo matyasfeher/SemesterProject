@@ -7,6 +7,23 @@
 
 var ResultsController = angular.module('FlightSearch', [])
 
+//        .filter("airportName", function ($http) {
+//            return function (input) {
+//
+//                $http({
+//                    method: "GET",
+//                    url: "api/airportinfo/" + input
+//                }).then(function successCallback(res) {
+//                    var airportInfo = res.data;
+//                    out = "
+//                    return airportInfo.airports[0].city;
+//                }, function errorCallback(res) {
+//                    return "Error.";
+//                });
+//            };
+//            return out;
+//        })
+
         .controller('FlightController', function ($scope, $http, $location) {
             $scope.errorMessage = "";
             $scope.message = "Hey from Agnular";
@@ -25,6 +42,32 @@ var ResultsController = angular.module('FlightSearch', [])
             $scope.alertMessage = "";
             $scope.dateFrom = "2016-12-01";
 
+            $scope.airportName ;
+
+
+            $scope.getAirportCity = function (airportCode) {
+                console.log("Call made with: " + airportCode);
+               
+                $http({
+                    method: 'GET',
+                    url: 'api/airportinfo/' +airportCode
+                }).then(function successCallback(response) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    $scope.airportName = "DATA ARRIVED";
+                    
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    $scope.airportName = "DATA NOT ARRIVED";
+                });
+                
+                
+
+            };
+
+            $scope.errorMessage = $scope.getAirportCity("BUD");
+            
 
             $scope.getArrivalTime = function (date, travelTime) {
 
@@ -86,7 +129,7 @@ var ResultsController = angular.module('FlightSearch', [])
                 $scope.showLoadingSpinner = true;
                 $scope.dateFrom = $("#datetimepicker1").find("input").val();
                 $scope.dateTo = $("#datetimepicker2").find("input").val();
-                
+
                 $scope.originAirport = $("#originAirport").val();
                 $scope.destAirport = $("#destinationAirport").val();
 
@@ -131,12 +174,12 @@ var ResultsController = angular.module('FlightSearch', [])
 
             };
 
-            $scope.exchangeCities = function() {
+            $scope.exchangeCities = function () {
                 var dateFrom = $("#originAirport").val();
                 $("#originAirport").val($("#destinationAirport").val());
                 $("#destinationAirport").val(dateFrom);
             };
 
 
+
         });
-        
