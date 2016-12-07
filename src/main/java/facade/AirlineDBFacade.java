@@ -19,6 +19,14 @@ import javax.persistence.Query;
  */
 public class AirlineDBFacade {
 
+    public FlightInstance getFlightInstanceByFlightId(String flightId){
+    FlightInstance fi;
+    EntityManager em = getEntityManager();
+    fi = em.find(FlightInstance.class, flightId);
+    return fi;
+    }
+    
+    
     //Returns all flight instances for a single flight between two airports
     public List<FlightInstance> getFlightInstancesBetweenAirports(String from, String to, String date) {
         Flight flight = getFlightFromTo(from, to);
