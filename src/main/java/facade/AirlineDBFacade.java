@@ -20,10 +20,19 @@ import javax.persistence.Query;
 public class AirlineDBFacade {
 
     public FlightInstance getFlightInstanceByFlightId(String flightId){
-    FlightInstance fi;
-    EntityManager em = getEntityManager();
-    fi = em.find(FlightInstance.class, flightId);
-    return fi;
+     try {
+            FlightInstance fi;
+            EntityManager em = getEntityManager();
+
+            Query query = em.createQuery("SELECT f FROM FlightInstance f WHERE f.flightId = :flightId");
+            query.setParameter("flightId", flightId);
+           
+            fi = (FlightInstance) query.getSingleResult();
+            return fi;
+        } catch (Exception ex) {
+            System.out.println("Exception in getFLight: " + ex.toString());
+            return null;
+        }
     }
     
     

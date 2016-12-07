@@ -54,14 +54,14 @@ public class BookingService {
                 json = gson.toJson(errorObject);
                 return json;
             } else {
-                JSONObject responseObject = new JSONObject();
-                responseObject.put("flightNumber", fi.getFlightId());
-                responseObject.put("origin", fi.getFlight().getFrom());
-                responseObject.put("destination", fi.getFlight().getTo());
-                responseObject.put("destination", fi.getDate());
-                responseObject.put("flightTime", fi.getTime());
+                JSONObject responseObject = new JSONObject();               
+                responseObject.put("passengers", requestObject.get("passengers")); 
                 responseObject.put("numberOfSeats", requestObject.get("numberOfSeats"));
-                responseObject.put("passengers", requestObject.get("passengers"));
+                responseObject.put("flightTime", fi.getTime());
+                responseObject.put("date", fi.getDate());
+                responseObject.put("destination", fi.getFlight().getTo());
+                responseObject.put("origin", fi.getFlight().getFrom());
+                responseObject.put("flightNumber", fi.getFlightId());
                 json = gson.toJson(responseObject);
                 return json;
             }
