@@ -22,9 +22,8 @@
             <img src="FrontPages/images/b2.jpg" class="bgM"/>
             <img src="#" delayed-src="FrontPages/images/b2.jpg" class="bgM"/>
         </div>
-        <br><br>
-        {{airportName}}
-        <div class="container">
+        
+        <div class="container" style='padding-top: 30px;'>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="search-bar">
@@ -49,14 +48,14 @@
                                     <div class="form-group">
                                         <label class="control-label">Date</label> <br>
                                         <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' class="form-control" id="datepicker1input" ng-model="dateFrom"/>
+                                            <input type='text' class="form-control" id="datepicker1input" ng-model="dateFrom" required=""/>
                                             <span class="input-group-addon">
                                                 <span id="calendarFrom" class="glyphicon glyphicon-calendar"></span>
                                             </span>
                                         </div>
                                     </div>
 
-                                    <div class="form-group" id="returnDate">
+<!--                                    <div class="form-group" id="returnDate">
                                         <label>Return Date</label>
                                         <div class="container calendar">
                                             <div class="row">
@@ -73,11 +72,11 @@
 
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     &emsp;
                                     <div class="form-group" >
                                         <label for="inputName" class="control-label">Passengers</label><br>
-                                        <input type="text" class="form-control" ng-model="passengerNo" size="8">
+                                        <input type="text" class="form-control" ng-model="passengerNo" size="8" required="">
                                     </div>
                                     &emsp;&emsp;
 
@@ -118,34 +117,34 @@
                                         <strong>{{alertMessageTitle}}</strong> {{alertMessage}}
                                     </div>
 
-                                    <div class="center" id="fromTo">
+                                    <div id="fromTo" style="padding-left: 35%;">
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-left"></span></div>
-                                        <div class="date"><span class="label label-success">{{data.results[0].flights[0].date| date:'yyyy-MM-dd'}}</span></div>
+                                        <div class="date"><span class="label label-success">{{dateFrom | date:'yyyy-MM-dd'}}</span></div>
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
                                     </div>
                                     <div class="center" id="fromTo" ng-show="">
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-left"></span></div>
-                                        <div class="date"><span class="label label-info">{{data.results[1]}}haho</span></div>
+                                        <div class="date"><span class="label label-info">{{data.results[1]}}</span></div>
                                         <div class="changeDay"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
                                     </div>
 
 
-                                    <div class="jumbotron" ng-repeat="airlineResp in data.results" id="details"  >  
+                                    <div class="jumbotron" ng-repeat="airlineResp in data.results | bookingResults" id="details"  >  
                                         <table id="results-table">
-                                            <tr ng-repeat="flight in airlineResp.flights" >
+                                            <tr ng-repeat="flight in airlineResp.flights">
                                                 <td>{{airlineResp.airline}}</td>
                                                 <td><h4><span class="label label-primary">{{flight.origin}}</span></h4></td>
                                                 <td><span data-toggle="tooltip" title="Departure Time">{{flight.date| date:'HH:mm'}}</span></td>
                                                 <td>
                                                     <div class="arrowDate" data-toggle="tooltip" title="Flight Duration">
-                                                        <div>{{flight.traveltime}} min</div>
+                                                        <div>{{flight.travelTime | formatMinutes}}</div>
                                                         <div><img src="FrontPages/images/arrow.png" /></div>
                                                     </div>
                                                 </td>
                                                 <td><span data-toggle="tooltip" title="Arrival Time">{{getArrivalTime(flight.date, flight.traveltime)}}</span></td>
                                                 <td><h4><span class="label label-primary">{{flight.destination}}</span></h4></td>
                                                 <td><span data-toggle="tooltip" title="Price"><b>{{flight.totalPrice| currency}}</b> {{flight.numberOfSeats}} seat</span></td>
-                                                <td><button class="btn btn-success" ng-click="bookFlight(flight.flightID)">Book</button></td>
+                                                <td><button class="btn btn-success" ng-click="bookFlight(airlineResp.airline, flight.flightID)">Book</button></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -161,11 +160,8 @@
                         <div class="panel panel-default translucent">
                             <div class="panel-body">
                                 <div class="row">
-
-
                                     <div class="col-sm-12">
-
-
+                                        
                                         <div class="container col-sm-4">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
@@ -176,7 +172,7 @@
                                                         <tr> 
                                                             <td>
                                                                 <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>
-                                                                <b>{{data.airline}}</b>  ({{flightToBook.flightNumber}})</td>
+                                                                <b>{{airlineToBookWith}}</b>  ({{flightToBook.flightID}})</td>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -261,15 +257,12 @@
                                         <div id="bookNow">
                                             <button class="btn btn-success" ng-click="sendBooking">Book Now</button>
                                         </div>
-
-
                                     </div>
                                 </div>
+                                <button type="button" class="btn btn-default" ng-click="backToResults()" style="float:left">Back to results</button>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

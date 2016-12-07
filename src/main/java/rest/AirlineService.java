@@ -65,13 +65,16 @@ public class AirlineService {
             flights.add(singleFlight);
         }
 
-        JSONObject object = new JSONObject();
-        object.put("airline", "SemestAir");
-        object.put("flights", flights);
+        if (!flights.isEmpty()) {
+            JSONObject object = new JSONObject();
+            object.put("airline", "SemestAir");
+            object.put("flights", flights);
 
-        json = gson.toJson(object);
+            json = gson.toJson(object);
 
-        return json;
+            return json;
+        }
+        return "{\"error\":\"No flights.\"}";
     }
 
     @GET
@@ -104,12 +107,15 @@ public class AirlineService {
             flights.add(singleFlight);
         }
 
-        JSONObject object = new JSONObject();
-        object.put("airline", "SemestAir");
-        object.put("flights", flights);
+        if (!flights.isEmpty()) {
+            JSONObject object = new JSONObject();
+            object.put("airline", "SemestAir");
+            object.put("flights", flights);
 
-        json = gson.toJson(object);
+            json = gson.toJson(object);
 
-        return json;
+            return json;
+        }
+        return "{\"error\":\"No flights.\"}";
     }
 }

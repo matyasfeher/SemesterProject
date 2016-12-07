@@ -7,22 +7,30 @@
 
 var ResultsController = angular.module('FlightSearch', [])
 
-//        .filter("airportName", function ($http) {
-//            return function (input) {
-//
-//                $http({
-//                    method: "GET",
-//                    url: "api/airportinfo/" + input
-//                }).then(function successCallback(res) {
-//                    var airportInfo = res.data;
-//                    out = "
-//                    return airportInfo.airports[0].city;
-//                }, function errorCallback(res) {
-//                    return "Error.";
-//                });
-//            };
-//            return out;
-//        })
+        .filter('formatMinutes', function () {
+            return function (input) {
+
+                var hours = 0;
+                var minutes = 0;
+                var inputMinutes = parseInt(input);
+                hours = Math.floor(inputMinutes / 60);
+                minutes = inputMinutes - hours * 60;
+
+                return hours + ":" + minutes;
+            };
+        })
+
+        .filter('bookingResults', function () {
+            return function (input) {
+                var out = [];
+                angular.forEach(input, function(result) {
+                    if (result.airline) {
+                        out.push(result);
+                    }
+                });
+                return out;
+            };
+        })
 
         .controller('FlightController', function ($scope, $http, $location) {
             $scope.errorMessage = "";
@@ -42,32 +50,32 @@ var ResultsController = angular.module('FlightSearch', [])
             $scope.alertMessage = "";
             $scope.dateFrom = "2016-12-01";
 
-            $scope.airportName ;
+            $scope.airlineToBookWith = "";
 
 
             $scope.getAirportCity = function (airportCode) {
                 console.log("Call made with: " + airportCode);
-               
+
                 $http({
                     method: 'GET',
-                    url: 'api/airportinfo/' +airportCode
+                    url: 'api/airportinfo/' + airportCode
                 }).then(function successCallback(response) {
                     // this callback will be called asynchronously
                     // when the response is available
                     $scope.airportName = "DATA ARRIVED";
-                    
+
                 }, function errorCallback(response) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     $scope.airportName = "DATA NOT ARRIVED";
                 });
-                
-                
+
+
 
             };
 
             $scope.errorMessage = $scope.getAirportCity("BUD");
-            
+
 
             $scope.getArrivalTime = function (date, travelTime) {
 
@@ -91,17 +99,25 @@ var ResultsController = angular.module('FlightSearch', [])
             };
 
 
-            $scope.bookFlight = function (flightID) {
+            $scope.bookFlight = function (airline, flightID) {
 
-                //Find the index of the flight in the array by flightID
-                var flightsArray = $scope.data.flights;
-                var flightIndex;
-                for (var i = 0; i < flightsArray.length; i++) {
-                    if (flightsArray[i].flightID === flightID) {
-                        flightIndex = i;
+                var resultsArray = $scope.data.results;
+                var flightToBook;
+
+                for (var i = 0; i < resultsArray.length; i++) {
+                    if (resultsArray[i].airline === airline) {
+                        var airlineFlights = resultsArray[i].flights;
+                        for (var j = 0; i < airlineFlights.length; j++) {
+                            if (airlineFlights[j].flightID === flightID) {
+                                flightToBook = airlineFlights[j];
+                                $scope.airlineToBookWith = airline;
+                                break;
+                            }
+                        }
                     }
                 }
-                $scope.flightToBook = $scope.data.flights[flightIndex];
+
+                $scope.flightToBook = flightToBook;
                 $(".search-bar").hide();
                 $(".search-results").hide();
                 $(".booking-panel").show();
@@ -110,6 +126,12 @@ var ResultsController = angular.module('FlightSearch', [])
 
             $scope.dismissAlertBox = function () {
                 $scope.showAlertBox = false;
+            };
+
+            $scope.backToResults = function () {
+                $scope.showBookingPanel = false;
+                $(".search-results").show();
+                $(".search-bar").show();
             };
 
             //RESERVATION
