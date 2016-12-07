@@ -22,7 +22,9 @@ import static org.junit.Assert.*;
  */
 public class AirlineDBFacadeTest {
     AirlineDBFacade AirlineDBFacade = new AirlineDBFacade();
-    
+
+
+//    These test are commented out because the methods are now private, if they were still public these test would have worked aswell.
 //    @Test
 //    public void testGetFlightFromTo(){
 //        String from = "BUD";
@@ -55,6 +57,23 @@ public class AirlineDBFacadeTest {
 //    }
     
     
+        @Test
+    public void testGetFlightByFlightNumber(){
+        String flightNumber = "123456";
+        AirlineDBFacade ADBFacade = new AirlineDBFacade();
+        Flight flight = ADBFacade.getFlightByFlightNumber("123456");
+        
+        assertEquals(flightNumber, flight.getFlightNumber());
+    }
+    
+            @Test
+        public void testGetFlightByFlightNumberFail(){
+        String flightNumber = "123456";
+        AirlineDBFacade ADBFacade = new AirlineDBFacade();
+        Flight flight = ADBFacade.getFlightByFlightNumber("");
+        
+        assertEquals(flightNumber, flight.getFlightNumber());
+    }
     
     @Test
     public void testGetFlightInstancesBetweenAirports(){
@@ -64,6 +83,46 @@ public class AirlineDBFacadeTest {
         AirlineDBFacade ADBFacade = new AirlineDBFacade();
         List<FlightInstance> flightInstances = ADBFacade.getFlightInstancesBetweenAirports(from, to, date);
         
+        
+        for(FlightInstance flightInstance : flightInstances){
+            assertNotNull(flightInstance);
+//            assertNull(flightInstance);
+        }
+    }
+    
+        @Test
+        public void testGetFlightInstancesBetweenAirportsFail(){
+        String from = "CPH";
+        String to = "BUD";
+        String date = "2017-01-01T08:00:00.000Z";
+        AirlineDBFacade ADBFacade = new AirlineDBFacade();
+        List<FlightInstance> flightInstances = ADBFacade.getFlightInstancesBetweenAirports(from, to, date);
+        
+        
+        for(FlightInstance flightInstance : flightInstances){
+            assertNull(flightInstance);
+        }
+    }
+    
+    
+    @Test
+    public void testGetFlightInstancesFromAirport(){
+        String from = "CPH";
+        String date = "2017-01-01T08:00:00.000Z";
+        AirlineDBFacade ADBFacade = new AirlineDBFacade();
+        List<FlightInstance> flightInstances = ADBFacade.getFlightInstancesFromAirport(from, date);
+        
+        for(FlightInstance flightInstance : flightInstances){
+            assertNotNull(flightInstance);
+        }
+    }
+    
+    @Test
+    public void testGetFlightInstancesFromAirportFail(){
+        String from = "";
+        String date = "2017-01-01T08:00:00.000Z";
+        AirlineDBFacade ADBFacade = new AirlineDBFacade();
+        List<FlightInstance> flightInstances = ADBFacade.getFlightInstancesFromAirport(from, date);
         
         for(FlightInstance flightInstance : flightInstances){
             assertNotNull(flightInstance);
