@@ -9,12 +9,19 @@ var ResultsController = angular.module('FlightSearch', [])
 
         .filter('formatMinutes', function () {
             return function (input) {
+                
+                if (typeof input == 'undefined') {
+                    return "";
+                }
+                
                 var hours = 0;
                 var minutes = 0;
                 var inputMinutes = parseInt(input);
                 hours = Math.floor(inputMinutes / 60);
                 minutes = inputMinutes - hours * 60;
-
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
                 return hours + ":" + minutes;
             };
         })
@@ -34,8 +41,8 @@ var ResultsController = angular.module('FlightSearch', [])
         .filter('airportName', function() {
             return function (input) {
                 var out = "";
-                var airports = {"CPH": "Copenhagen", "BUD": "Budapest", "STN":"London"};
-                console.log("is nan: " + airports["STN"]);
+                var airports = {"CPH": "Copenhagen", "BUD": "Budapest", "STN":"London Stansted", "SXF":"Berlin Schönefeld"};
+                //console.log("Airport name request for: "+input+", reply: "+airports[input]);
                 if (typeof airports[input] != 'undefined') {
                     return airports[input];
                 }
@@ -50,7 +57,7 @@ var ResultsController = angular.module('FlightSearch', [])
         .controller('FlightController', function ($scope, $http, $location) {
             $scope.errorMessage = "";
             $scope.message = "Hey from Agnular";
-            $scope.originAirports = ["CPH", "STN", "SXF", "CDG", "BCN"];
+            
 
             $scope.showBookingPanel = false;
             $scope.showResultsPanel = false;
@@ -124,24 +131,39 @@ var ResultsController = angular.module('FlightSearch', [])
             $scope.errorMessage = $scope.getAirportCity("BUD");
 
 
-            $scope.getArrivalTime = function (date, travelTime) {
+            $scope.getArrivalTime = function (date, travelTime, traveltime) {
+                
+                var TT;
+                if (typeof traveltime != 'undefined') {
+                    TT = traveltime;
+                }
+                else {
+                    TT = travelTime;
+                }
 
                 var s = date.split("T");
                 s = s[1].split(".");
                 var time = s[0];
                 var timeUnits = time.split(":");
                 var finalTime = timeUnits[0] + ":" + timeUnits[1];
-                var hour = parseInt(timeUnits[0]);
+                var hour = parseInt(timeUnits[0]) + 1;
                 var mins = parseInt(timeUnits[1]);
-                travelTime = parseInt(travelTime);
+                TT = parseInt(TT);
 
-                while (mins + travelTime > 60) {
+                while (mins + TT >= 60) {
                     hour++;
-                    travelTime = travelTime - 60;
+                    TT = TT - 60;
                 }
-                if (travelTime + mins < 60) {
-                    mins += travelTime;
+                if (TT + mins < 60) {
+                    mins += TT;
                 }
+                if (mins < 10) {
+                    mins = "0" + mins;
+                }
+                if (hour < 10) {
+                    hour = "0" + hour;
+                }
+                
                 return hour + ":" + mins;
             };
 
