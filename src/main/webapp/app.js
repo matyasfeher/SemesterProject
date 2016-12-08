@@ -9,7 +9,6 @@ var ResultsController = angular.module('FlightSearch', [])
 
         .filter('formatMinutes', function () {
             return function (input) {
-
                 var hours = 0;
                 var minutes = 0;
                 var inputMinutes = parseInt(input);
@@ -23,12 +22,28 @@ var ResultsController = angular.module('FlightSearch', [])
         .filter('bookingResults', function () {
             return function (input) {
                 var out = [];
-                angular.forEach(input, function(result) {
+                angular.forEach(input, function (result) {
                     if (result.airline) {
                         out.push(result);
                     }
                 });
                 return out;
+            };
+        })
+        
+        .filter('airportName', function() {
+            return function (input) {
+                var out = "";
+                var airports = {"CPH": "Copenhagen", "BUD": "Budapest", "STN":"London"};
+                console.log("is nan: " + airports["STN"]);
+                if (typeof airports[input] != 'undefined') {
+                    return airports[input];
+                }
+                else {
+                    airports[input] = "London";
+                }
+                
+                return input;
             };
         })
 
@@ -44,13 +59,45 @@ var ResultsController = angular.module('FlightSearch', [])
 
             $scope.originAirport = "CPH";
             $scope.destAirport = "";
+            $scope.dateFrom = "2016-12-01";
             $scope.passengerNo = 1;
 
             $scope.alertMessageTitle = "";
             $scope.alertMessage = "";
-            $scope.dateFrom = "2016-12-01";
+
 
             $scope.airlineToBookWith = "";
+
+            var airports = {"CPH": "Copenhagen", "BUD": "Budapest", "STN": "London"};
+            $scope.airports = airports;
+
+            var options = {
+
+                url: function (phrase) {
+                    return "api/countrySearch.php";
+                },
+
+                getValue: function (element) {
+                    return element.name;
+                },
+
+                ajaxSettings: {
+                    dataType: "json",
+                    method: "POST",
+                    data: {
+                        dataType: "json"
+                    }
+                },
+
+                preparePostData: function (data) {
+                    data.phrase = $("#example-ajax-post").val();
+                    return data;
+                },
+
+                requestDelay: 400
+            };
+
+            $("#example-ajax-post").easyAutocomplete(options);
 
 
             $scope.getAirportCity = function (airportCode) {

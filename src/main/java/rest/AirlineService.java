@@ -38,6 +38,7 @@ public class AirlineService {
 
     @GET
     @Path("{from}/{date}/{tickets}")
+    @Produces(MediaType.APPLICATION_JSON)
     public String getFlight(@PathParam("from") String from,
             @PathParam("date") String date,
             @PathParam("tickets") int tickets) {
@@ -79,6 +80,7 @@ public class AirlineService {
 
     @GET
     @Path("{from}/{to}/{date}/{tickets}")
+    @Produces(MediaType.APPLICATION_JSON)
     public String getFlight(@PathParam("from") String from,
             @PathParam("to") String to,
             @PathParam("date") String date,

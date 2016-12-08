@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "airline": {
+      "type": "string"
+    },
+    "flights": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "numberOfSeats": {
+            "type": "integer"
+          },
+          "travelTime": {
+            "type": "integer"
+          },
+          "totalPrice": {
+            "type": "integer"
+          },
+          "origin": {
+            "type": "string"
+          },
+          "destinationName": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "flightID": {
+            "type": "string"
+          },
+          "flightNumber": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "date",
+          "numberOfSeats",
+          "travelTime",
+          "totalPrice",
+          "origin",
+          "destinationName",
+          "destination",
+          "flightID",
+          "flightNumber"
+        ]
+      }
+    }
+  },
+  "required": [
+    "airline",
+    "flights"
+  ]
+}
