@@ -33,6 +33,7 @@ public class ApplicationConfig extends Application {
         resources.add(rest.AirportInfoResource.class);
         resources.add(rest.AirportService.class);
         resources.add(rest.BookingService.class);
+        resources.add(rest.MetaBookingService.class);
         resources.add(rest.MetaSearchService.class);
     }
     
