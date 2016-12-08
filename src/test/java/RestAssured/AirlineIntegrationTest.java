@@ -53,6 +53,7 @@ public class AirlineIntegrationTest {
                         "destination", equalToIgnoringCase("stn"));
     }
 
+    @Ignore
     @Test
     public void testFlightsFromAnAirport() {
 

@@ -75,7 +75,10 @@ public class AirlineService {
 
             return json;
         }
-        return "{\"error\":\"No flights.\"}";
+        int httpError = 400;
+        int errorCode = 1;
+        String message = "";
+        return "{ \"httpError\": " + httpError + ", \"errorCode\": " + errorCode + ", \"message\": No flights could be found with the search criteria. } ";
     }
 
     @GET
@@ -118,6 +121,10 @@ public class AirlineService {
 
             return json;
         }
-        return "{\"error\":\"No flights.\"}";
+        int httpError = 400;
+        int errorCode = 1;
+        String message = "";
+        return "{ \"httpError\": " + httpError + ", \"errorCode\": " + errorCode + ", \"message\": No flights could be found with the search criteria. } ";
+    
     }
 }
